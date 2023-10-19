@@ -1,33 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import Categories from "./components/categories";
+import Categories from "../components/categories";
 // import {createSlice} from "@reduxjs/toolkit";
 import {BiSearch} from "react-icons/bi"
-// const initialState = {
-//     cartItems: [],
-//     cartTotalQuantity : 0,
-//     cartTotalAmount : 0,
-// };
 
-// const cartSlice = createSlice({
-//     name : "cart",
-//     initialState,
-//     reducers : {
-//         addToCart(state, action) {
-//             state.cartItems.push(action.payload);
-//         }
-//     }
-// })
 
 const Home = () => {
     return (
-        <>
-        <Text>
-        <h1>
-            Welcome to the <strong>Best</strong> Online Retailing platform
-        </h1>
-        </Text>
-        
+        <>        
         <Search>
         <span>All Categories</span>
             <hr />
@@ -47,11 +27,6 @@ const Home = () => {
     )
 }
 
-const Text = styled.div`
-display: flex;
-justify-content: center;
-font-family: 'Montserrat', sans-serif;
-`
 
 const Search = styled.div`
 display: flex;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ListingInfo from "./components/ListingInfo.jsx";
+import ListingInfo from "../components/ListingInfo.jsx";
 
 export const AllListings = () => {
 

@@ -2,13 +2,13 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route, Link, Switch } from "react-router-dom";
 import styled from "styled-components";
-import Footer from "../../common/Footer"
-import Header from "../../common/Header"
-import Home from "../Home/Home"
-import Login from "../SignInUp/Login";
-import SignUp from "../SignInUp/SignUp";
-import AllListings from "../AllListings/AllListings.jsx";
-import Cart from "../Cart/Cart";
+import Footer from "../common/Footer"
+import Header from "../common/Header"
+import Home from "../pages/Home"
+import Login from "../pages/Login";
+import SignUp from "../pages/SignUp";
+import AllListings from "../pages/AllListings.jsx";
+import Cart from "../pages/Checkout";
 
 
 const Pages = () => {

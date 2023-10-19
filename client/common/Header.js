@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { NavLink, Navlist } from "react-router-dom";
 import { BiCart } from "react-icons/bi";
 const links = [
-    {name: "Signup", path:"/signup"},
+    {name: "SignUp", path:"/signup"},
     {name:"Login", path: "/login"},
-    {name: "listing", path: "/listing"},
-    {name:"Cart", path: "/cart"}
+    {name: "Sell", path: "/listing"},
+    {name:"MyCommerce", path: "/cart"}
 
 ]
 
