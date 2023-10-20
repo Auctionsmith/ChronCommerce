@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userInfo: null,
-  LoggedIn: false,
+  LoggedIn: true,
   openBids: [],
   wonItems: [],
   purchaseHistory: [],

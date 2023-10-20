@@ -4,35 +4,16 @@ import styled from "styled-components";
 import { NavLink, Navlist } from "react-router-dom";
 import { BiCart } from "react-icons/bi";
 import { useSelector } from "react-redux"
-
-const linksLoggedIn = [
-    {name: "SignUp", path:"/signup"},
-    {name:"Login", path: "/login"},
-    {name: "Sell", path: "/listing"},
-    {name:"MyCommerce", path: "/cart"}
-]
-
-const linksNotLoggedIn = [
-    {name: "SignUp", path:"/signup"},
-    {name:"Login", path: "/login"}
-]
+import { FaRegBell } from "react-icons/fa6"
+import LoggedInLinks from "../components/loggedInLinks";
+import LoggedOutLinks from "../components/loggedOutLinks";
 
 const Navigation = () => {
     const { LoggedIn } = useSelector((state)=>state.user)
-    const links = LoggedIn ? linksLoggedIn : linksNotLoggedIn
-
 
     return (
         <NavContainer>
-            {
-                links.map((link, index) => (
-                    <li key={index}>
-                        <StyledNavLink to={link.path} exact="true">
-                            {link.name}
-                        </StyledNavLink>
-                    </li>
-                ))
-            }
+            {LoggedIn ? <LoggedInLinks/> : <LoggedOutLinks/>}
         </NavContainer>
     )
 }
@@ -44,7 +25,6 @@ const Header = () => {
                 <HeaderContainer>
                     <h1>Welcome Back, User</h1>
                 <Navigation />
-
                 </HeaderContainer>
          
             </HeaderWrapper>
@@ -54,6 +34,7 @@ const Header = () => {
 const HeaderWrapper = styled.header`
 display: flex;
 flex-direction: row;
+justify-content: space-evenly;
 background-color: white;
 `
 
@@ -64,20 +45,25 @@ color: white;
 `
 
 const NavContainer = styled.nav`
-display : flex;
+display: flex;
 list-style: none;
-height: 50px;
 align-self: center;
-gap: 10px;
+gap: 25px;
 `
+const BellNavLink = styled(NavLink)`
+padding: 10px;
+background-color: white;
+`
+
 const StyledNavLink = styled(NavLink)`
 color : #053B50;
+padding: 10px;
 `
 
 const HeaderContainer = styled.div`
 display: flex;
 flex-direction: row;
-gap: 50px;
+gap: 30px;
 `
 
 
