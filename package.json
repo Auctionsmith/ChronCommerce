@@ -28,6 +28,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
@@ -35,6 +36,7 @@
     "react-router-dom": "^6.16.0",
     "react-use-cart": "^1.13.0",
     "sass": "^1.69.2",
+    "sequelize": "^6.33.0",
     "styled-components": "^6.0.8"
   },
   "devDependencies": {
