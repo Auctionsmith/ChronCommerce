@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Categories from "../components/categories";
+import SearchBar from "../components/SearchBar/SearchBar"
 // import {createSlice} from "@reduxjs/toolkit";
 import {BiSearch} from "react-icons/bi"
 
@@ -16,6 +17,7 @@ const Home = () => {
             <BiSearch />
            </button>
         </Search>
+        <SearchBar/>
         
         <p></p>
         <hr></hr>
