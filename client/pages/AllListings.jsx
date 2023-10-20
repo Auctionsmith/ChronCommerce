@@ -15,16 +15,6 @@ export const AllListings = () => {
         }
     }
 
-    // const getItemsByCategory = async (categoryId) => {
-    //     try {
-    //         const res = await fetch(`http://localhost:3000/listing/${listingId}`);
-    //         const data = await res.json();
-    //         setItems(data);
-    //     } catch (error) {
-    //         console.error("Error fetching data:", error);
-    //     }
-    // }
-
     const populateItems = () => {
         // if (categoryId) {
         //     getItemsByCategory(categoryId);
