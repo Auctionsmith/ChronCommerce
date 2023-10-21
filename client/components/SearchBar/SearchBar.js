@@ -30,6 +30,7 @@ const SearchBar = () => {
   return (
     <div>
       <form onSubmit={search} >
+      <input type="text" placeholder="Search..." ref={searchRef}/>
         <select id="Search-categories" ref={selectRef}>
           <option value="allcategories">All Categories</option>
           <option value="motors">Motors</option>
@@ -42,7 +43,6 @@ const SearchBar = () => {
           <option value="home&garden">Home & Garden</option>
           <option value="othercategories">Other Categories</option>
         </select>
-      <input type="text" placeholder="Search..." ref={searchRef}/>
       <button type="submit">Search</button>
       </form>
     </div>

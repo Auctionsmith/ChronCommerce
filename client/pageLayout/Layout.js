@@ -9,6 +9,9 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import AllListings from "../pages/AllListings.jsx";
 import Cart from "../pages/Checkout";
+import WatchList from "../pages/WatchList";
+import Sell from '../pages/Sell'
+import IndividualAuctionItem from "../pages/IndividualAuctionItem";
 
 
 const Pages = () => {
@@ -23,18 +26,19 @@ const Pages = () => {
         )
     }
 
-
     return (
         <>
         <Router>
             <Routes>
 
                 <Route path="/" element={<Page />}>
-                    <Route path ="" element={<Home />} />
+                    <Route path ="/" element={<Home />} />
                     <Route path ='/login' element={<Login/>}/>
                     <Route path ='/signup' element={<SignUp/>}/>
-                    <Route path ='/listing' element={<AllListings/>}/>
-                    <Route path="/cart"  element={<Cart/>}/>
+                    <Route path ='/auction/:id' element={<IndividualAuctionItem/>}/>
+                    <Route path ='/sell' element={<Sell/>}/>
+                    <Route path="/checkout"  element={<Cart/>}/>
+                    <Route path="/watchlist" element={<WatchList/>}/>
                     <Route />
                 </Route>
             </Routes>
