@@ -1,6 +1,7 @@
 const { Pool } = require('pg');
 require('dotenv').config();
 const { Sequelize, DataTypes } = require('sequelize');
+const bcrypt = require('bcryptjs')
 
 // store in .env
 const url = 'postgres://ywbqzgag:XZi_XWfr8nzIqAx6wE9_pCSkCF-bzvFM@mahmud.db.elephantsql.com/ywbqzgag'
@@ -53,9 +54,11 @@ const User = sequelize.define('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
+    set(value) {
+      this.setDataValue('password', bcrypt.hashSync(value,10))
+    }
   },
 })
-
 const Auction = sequelize.define('Auction', {
   id: {
     type: DataTypes.INTEGER,
@@ -110,8 +113,22 @@ const Auction = sequelize.define('Auction', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-})
-
+},
+  {
+    scopes: {
+      open : {
+      where: {
+        status : 'open'
+        }
+      },
+      closed : {
+        where: {
+          status: 'closed'
+        }
+      }
+    }
+  }
+)
 const followedAuctions = sequelize.define('Following', {
   id: {
     type: DataTypes.INTEGER,
@@ -135,6 +152,21 @@ const followedAuctions = sequelize.define('Following', {
     },
   },
 })
+
+
+// User to Auction Associations
+User.hasMany(Auction, { foreignKey: 'buyer_id', onDelete: 'SET NULL' });
+User.hasMany(Auction, { foreignKey: 'seller_id', onDelete: 'CASCADE' });
+Auction.belongsTo(User, { as: 'Buyer', foreignKey: 'buyer_id' });
+Auction.belongsTo(User, { as: 'Seller', foreignKey: 'seller_id' });
+
+// User to followedAuctions Associations
+User.hasMany(followedAuctions, { foreignKey: 'user_id', onDelete: 'CASCADE' });
+followedAuctions.belongsTo(User, { foreignKey: 'user_id' });
+
+// Auction to followedAuctions Associations
+Auction.hasMany(followedAuctions, { foreignKey: 'auction_id', onDelete: 'CASCADE' });
+followedAuctions.belongsTo(Auction, { foreignKey: 'auction_id' });
 
 
 
@@ -277,6 +309,6 @@ const buildDummyDB = async() => {
   await createFollow(dummyFollow);
 }
 
-buildDummyDB();
+// buildDummyDB();
 
 module.exports = { User, Auction, followedAuctions };
