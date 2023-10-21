@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Categories from "../components/categories";
 import SearchBar from "../components/SearchBar/SearchBar"
 import ItemOfTheDay from "../components/ItemOfTheDay";
+import AllListings from "../components/AllListings";
 // import {createSlice} from "@reduxjs/toolkit";
 import {BiSearch} from "react-icons/bi"
 
@@ -16,9 +17,9 @@ const Home = () => {
         </Search>
         <hr></hr>
         <ItemOfTheDay/>
-        <h2>Hot Deals!</h2>
+        <HotDealsTag>Hot Deals!</HotDealsTag>
         <Container>
-        <Categories />
+        <AllListings />
         </Container>
         <hr></hr>
         </>
@@ -34,24 +35,18 @@ margin-top: 1rem;
 border : solid 0.5px;
 width : 25rem;
 `
-
-const Table = styled.table`
-justify-content: center;
-display: flex;
-margin-top: 1.0rem;
-width : 100%;
-height : 100%;
-vertical-align: middle;
-
-`
-
 const StyledInput = styled.input`
 font-size: 1rem;
 Border: none;
 padding: 0px;
 `
+const HotDealsTag = styled.h2`
+margin-left: 4rem;
+`
+
 const Container = styled.div`
 display: flex;
-  justify-content: space-evenly;
+background-color: white;
+padding: 1rem;
 `
 export default Home;

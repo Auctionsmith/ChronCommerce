@@ -23,6 +23,10 @@ const Sell = () => {
     Name:
     <input type="text" name="name" />
   </label>
+  <label>
+    Image
+    <input type="file" name="auctionImage" />
+  </label>
  
   </SellForm>
 </SellWrapper>

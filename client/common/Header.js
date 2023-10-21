@@ -20,10 +20,18 @@ const Navigation = () => {
 
 
 const Header = () => {
+    const { userInfo } = useSelector((state)=> state.user)
+    
+    const timeBasedGreeting = (currTime = new Date().getHours(), name = userInfo.first_name) => {
+        if(currTime >= 0 && currTime <= 12) return `Good Morning, ${name}`
+        if(currTime > 12 && currTime <= 17) return `Good Afternoon, ${name}`
+        if(currTime > 17) return `Good Evening, ${name}`
+    }
+
     return (
             <HeaderWrapper>
                 <HeaderContainer>
-                    <h1>Welcome Back, User</h1>
+                    <h1>{timeBasedGreeting()}</h1>
                 <Navigation />
                 </HeaderContainer>
          
@@ -64,6 +72,9 @@ const HeaderContainer = styled.div`
 display: flex;
 flex-direction: row;
 gap: 30px;
+h1{
+    margin-right: 6em;
+}
 `
 
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Category from "./category";
+import Item from "./Listing"
 
 import styled from "styled-components";
 
@@ -9,7 +10,6 @@ const [category, setCategory] = useState([1,2,3,4,5,6,7,8]);
 
 return (
     <Container>
-      <h1>test</h1>
     {
         category.map((ct, i) => {
           return  <Category ct={ct} key={i} />

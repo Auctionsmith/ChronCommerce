@@ -33,6 +33,9 @@ const LoggedInLinksWrapper = styled.div`
 display: flex;
 flex-direction: row;
 gap: 20px;
+button{
+  margin-left:5em;
+}
 `
 
 export default LoggedInLinks
