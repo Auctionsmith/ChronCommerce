@@ -11,6 +11,7 @@ import AllListings from "../pages/AllListings.jsx";
 import Cart from "../pages/Checkout";
 import WatchList from "../pages/WatchList";
 import Sell from '../pages/Sell'
+import IndividualAuctionItem from "../pages/IndividualAuctionItem";
 
 
 const Pages = () => {
@@ -25,7 +26,6 @@ const Pages = () => {
         )
     }
 
-
     return (
         <>
         <Router>
@@ -35,6 +35,7 @@ const Pages = () => {
                     <Route path ="/" element={<Home />} />
                     <Route path ='/login' element={<Login/>}/>
                     <Route path ='/signup' element={<SignUp/>}/>
+                    <Route path ='/auction/:id' element={<IndividualAuctionItem/>}/>
                     <Route path ='/sell' element={<Sell/>}/>
                     <Route path="/checkout"  element={<Cart/>}/>
                     <Route path="/watchlist" element={<WatchList/>}/>
