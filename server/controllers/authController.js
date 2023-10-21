@@ -46,8 +46,12 @@ authController.logout = (req, res, next) => {
 };
 
 authController.getUser = (req, res, next) => {
-  if(req.isAuthenticated()) return next();
-  return next();
+  if(req.isAuthenticated()) {
+    res.lcoals.user = req.user;
+    return next();
+  }
+  // add error details below
+  return next(err);
 }
 
 //   const client = await pool.connect()

@@ -14,15 +14,42 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 
-// session configuration
-app.use(
-  session({
-    // env variable for secret
-    secret: 'hello',
+
+// const session = require('express-session');
+const RedisStore = require('connect-redis').default;
+const { createClient } = require('redis');
+
+const client = createClient({
+  password: 'PIvyCh6v09PexC8KI06UoHsC2emwsEW0',
+  socket: {
+      host: 'redis-14153.c60.us-west-1-2.ec2.cloud.redislabs.com',
+      port: 14153
+  }
+})
+
+client.connect()
+
+const store = new RedisStore({ client: client, prefix: "myapp:"});
+
+// const app = require('express')();
+
+app.use(session({
+    secret: 'your_secret_key',  // replace with your own secret key
     resave: false,
     saveUninitialized: true,
-  }),
-);
+    store: store
+}));
+
+
+// session configuration
+// app.use(
+//   session({
+//     // env variable for secret
+//     secret: 'hello',
+//     resave: false,
+//     saveUninitialized: true,
+//   }),
+// );
 
 // initilize use of passport and sessions
 app.use(passport.initialize());
