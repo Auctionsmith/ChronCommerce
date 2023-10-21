@@ -45,7 +45,13 @@ const User = sequelize.define('User', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-  }, 
+  },
+  username: {
+    type: DataTypes.VIRTUAL,
+    get: function () {
+      return this.email;
+    }
+  },
   phone: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -112,7 +118,7 @@ const Auction = sequelize.define('Auction', {
   },
 })
 
-const followedAuctions = sequelize.define('Following', {
+const followedAuctions = sequelize.define('followedAuctions', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -271,12 +277,12 @@ const createFollow = async (dummyFollow) => {
 // sequelize.sync({force: true})
 //   .then(() => console.log('All models synchronized'));
 
-const buildDummyDB = async() => {
-  await createDummyUsers(dummyUsers);
-  await createAuction(dummyAuction);
-  await createFollow(dummyFollow);
-}
-
-buildDummyDB();
+// const buildDummyDB = async() => {
+//   await createDummyUsers(dummyUsers);
+//   await createAuction(dummyAuction);
+//   await createFollow(dummyFollow);
+// }
+// uncomment to add dummy data
+// buildDummyDB();
 
 module.exports = { User, Auction, followedAuctions };

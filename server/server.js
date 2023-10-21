@@ -1,17 +1,41 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const passport = require('passport');
+const session = require('express-session');
+const morgan = require('morgan');
+
 
 const PORT = 3000;
 const app = express();
 
+app.use(morgan('tiny'));
+
 app.use(cors());
 app.use(express.json());
+
+// session configuration
+app.use(
+  session({
+    // env variable for secret
+    secret: 'hello',
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
+
+// initilize use of passport and sessions
+app.use(passport.initialize());
+app.use(passport.session());
+
+// require and execute passport config
+require('../server/config/passport-config.js')(passport);
 
 const authRouter = require("./routes/authRouter");
 const listingRouter = require('./routes/listingRouter');
 const imageRouter = require('./routes/imageRouter');
 const cartRouter = require('./routes/cartRouter');
+
 
 app.use('/', express.static(path.join(__dirname, '../dist')));
 
