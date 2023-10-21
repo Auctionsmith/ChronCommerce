@@ -1,31 +1,23 @@
-require("aws-sdk/lib/maintenance_mode_message").suppress = true;
+const multer = require('multer');
 require("dotenv").config();
-
+const { v4 : uuidv4 } = require('uuid');
 const pool = require("../db/models");
+const s3 = require("../config/S3Config.js");
+
+const uniqueKey = uuidv4();
+
 const imageController = {};
-const AWS = require("aws-sdk");
 
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACC_KEY,
-  secretAccessKey: process.env.AWS_SECRET_KEY,
-  region: "us-west-1",
-  signatureVersion: "v4",
-});
-
-imageController.getUrl = async (req, res, next) => {
+imageController.getImage = async (req, res, next) => {
   const { key } = req.params;
   // Either we set a key and send it to client or client sets a key and sends to us
   // Either way need to store key inside of our DB and use it to query for our photos.
 
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
-
-  const randomNumber = getRandomInt(10000)
+  const fileExtension = path.extname(req.file.originalname);
 
   const params = {
-    Bucket: "listing-photos-scout",
-    Key: `${req.params.listingId}/${randomNumber}`,
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: `${req.params.listingId}/${uniqueKey}${fileExtension}`,
     Expires: 60,
   };
   console.log(params);
@@ -37,6 +29,8 @@ imageController.getUrl = async (req, res, next) => {
     return next(e);
   }
 };
+
+imageController.uploadToS3 = (req, res, next) =>
 
 
 module.exports = imageController;
