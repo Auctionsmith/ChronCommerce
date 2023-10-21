@@ -8,9 +8,9 @@ const ItemOfTheDay = () => {
     <p>Image Goes Here</p>
         </ImageContainer>
         <DescriptionContainer>
-            <h4>Name</h4>
-            <h2>Current Bid</h2>
-            <h2>Ends In</h2>
+            <h2>Name</h2>
+            <h4>Ends In</h4>
+            <h4>Current Bid</h4>
             <button>Bid</button>
         </DescriptionContainer>
         </DayWrapper>
