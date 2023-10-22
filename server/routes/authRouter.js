@@ -18,7 +18,7 @@ router.get("/logout", authController.logout, (req, res) => {
 });
 
 router.get('/user', authController.getUser, (req, res) => {
-  return res.status(200).json(req.body)
+  return res.status(200).json(res.locals.user)
 });
 
 module.exports = router;
