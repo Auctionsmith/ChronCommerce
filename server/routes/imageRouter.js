@@ -24,7 +24,7 @@ const upload = multer({ storage, limits, fileFilter });
 //   const { url } = res.locals;
 //   return res.status(200).json(url);
 // });
-router.post("/upload", upload.single('imageField'), (req, res, next) => {
+router.post("/upload", upload.single('auctionImage'), (req, res, next) => {
   const { url } = res.locals;
   return res.status(200).json(url);
 });
