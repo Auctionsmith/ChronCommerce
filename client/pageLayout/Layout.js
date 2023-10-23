@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { BrowserRouter as Router, Routes, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, Switch, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../common/Footer"
 import Header from "../common/Header"
@@ -15,6 +15,7 @@ import IndividualAuctionItem from "../pages/IndividualAuctionItem";
 
 
 const Pages = () => {
+    // let { id } = useParams()
 
     const Page = () => {
         return (
@@ -33,9 +34,9 @@ const Pages = () => {
 
                 <Route path="/" element={<Page />}>
                     <Route path ="/" element={<Home />} />
+                    <Route path ="/:id"element={<IndividualAuctionItem/>}/>
                     <Route path ='/login' element={<Login/>}/>
                     <Route path ='/signup' element={<SignUp/>}/>
-                    <Route path ='/auction/:id' element={<IndividualAuctionItem/>}/>
                     <Route path ='/sell' element={<Sell/>}/>
                     <Route path="/checkout"  element={<Cart/>}/>
                     <Route path="/watchlist" element={<WatchList/>}/>

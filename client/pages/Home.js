@@ -4,6 +4,8 @@ import Categories from "../components/categories";
 import SearchBar from "../components/SearchBar/SearchBar"
 import ItemOfTheDay from "../components/ItemOfTheDay";
 import AllListings from "../components/AllListings";
+// Can remove this if it works as an individual path
+import IndividualAuctionItem from "./IndividualAuctionItem";
 // import {createSlice} from "@reduxjs/toolkit";
 import {BiSearch} from "react-icons/bi"
 

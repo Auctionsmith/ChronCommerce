@@ -1,16 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import IndividualAuctionItem from '../pages/IndividualAuctionItem'
 
-const Listing = ( { name, img, key, price, endTime } ) => {
+const Listing = ( { name, img, key, price, endTime, id } ) => {
 
   return (
     <ItemContainer key={key}>
-      <img src={img} alt="pic"/>
+      <img src={img} alt="A picture of the item up for auction"/>
       <p>Name :{name}</p>
       <p>Price : {price}</p>
       <p>Ends at {endTime}</p>
+      <p>test {id}</p>
+      <Link to={`/${id}`}>Individual Item</Link>
     </ItemContainer>
   )
 }

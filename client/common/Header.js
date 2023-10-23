@@ -1,12 +1,10 @@
 import React from "react";
-import cart from "../assets/cart.png";
 import styled from "styled-components";
 import { NavLink, Navlist } from "react-router-dom";
-import { BiCart } from "react-icons/bi";
 import { useSelector } from "react-redux"
-import { FaRegBell } from "react-icons/fa6"
 import LoggedInLinks from "../components/loggedInLinks";
 import LoggedOutLinks from "../components/loggedOutLinks";
+import "../styles/App.scss"
 
 const Navigation = () => {
     const { LoggedIn } = useSelector((state)=>state.user)
@@ -21,7 +19,7 @@ const Navigation = () => {
 
 const Header = () => {
     const { userInfo } = useSelector((state)=> state.user)
-    
+
     const timeBasedGreeting = (currTime = new Date().getHours(), name = userInfo.first_name) => {
         if(currTime >= 0 && currTime <= 12) return `Good Morning, ${name}`
         if(currTime > 12 && currTime <= 17) return `Good Afternoon, ${name}`
@@ -43,7 +41,7 @@ const HeaderWrapper = styled.header`
 display: flex;
 flex-direction: row;
 justify-content: space-evenly;
-background-color: white;
+background-color: $secondary-color;
 `
 
 const Image = styled.img`

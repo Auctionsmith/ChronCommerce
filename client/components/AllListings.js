@@ -5,13 +5,15 @@ import Listing from './Listing'
 
 const AllListings = () => {
     const { allItems } = useSelector((state)=> state.auctionItems)
+    // currently using the sellerId as the Id for child routes
   return (
     <AllListingsContainer>
     {allItems.map((listing) => {
       return <Listing 
       name={listing.item_name} 
       price={listing.current_price}
-      key={listing.item_name}
+      key={listing.seller_id}
+      id={listing.seller_id}
       img={listing.img_url}
       endTime={listing.end_time}
        />;

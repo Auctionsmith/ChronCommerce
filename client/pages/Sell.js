@@ -2,8 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
+import axios from 'axios'
 
 const Sell = () => {
+  // form data set up with axios, append mutliple use refs
+
   return (
   <SellWrapper>
     <SellForm>

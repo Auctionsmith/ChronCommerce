@@ -12,6 +12,7 @@ const WatchList = () => {
       name={listing.item_name} 
       price={listing.current_price}
       key={listing.item_name}
+      id={listing.seller_id}
       img={listing.img_url}
       endTime={listing.end_time}
        />;
