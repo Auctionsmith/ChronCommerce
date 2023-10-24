@@ -1,7 +1,10 @@
 const { Pool } = require('pg');
-require('dotenv').config();
+
+// require('dotenv').config({path: '../../.env'});
+
 const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcryptjs')
+const auctionEvent = require('../middleware/auctionEvent')
 
 // store in .env
 const url = 'postgres://ywbqzgag:XZi_XWfr8nzIqAx6wE9_pCSkCF-bzvFM@mahmud.db.elephantsql.com/ywbqzgag'
@@ -216,7 +219,7 @@ const dummyUsers = [
 const createDummyUsers = async (dummyUsers) => {
   for (let i = 0; i < dummyUsers.length; i++) {
     const newUser = await User.create(dummyUsers[i]);
-    // console.log(newUser.id)
+    console.log(newUser.id)
   }
 };
 
@@ -224,9 +227,9 @@ const createDummyUsers = async (dummyUsers) => {
 
 const dummyAuction = [
   {
-    start_time: new Date(),
-    end_time: new Date(),
-    status: 'open',
+    start_time: new Date(new Date().getTime() + (5)*60*1000),
+    end_time: new Date(new Date().getTime() + (7)*60*1000),
+    status: 'closed',
     current_price: 100,
     seller_id: 1, // Set to an existing seller's ID
     item_name: 'Dummy Item 1',
@@ -235,9 +238,9 @@ const dummyAuction = [
     description: 'A dummy auction item 1.',
   },
   {
-    start_time: new Date(),
-    end_time: new Date(),
-    status: 'open',
+    start_time: new Date(new Date().getTime() + (6)*60*1000),
+    end_time: new Date(new Date().getTime() + (8)*60*1000),
+    status: 'closed',
     current_price: 150,
     seller_id: 2, // Set to an existing seller's ID
     item_name: 'Dummy Item 2',
@@ -246,9 +249,9 @@ const dummyAuction = [
     description: 'A dummy auction item 2.',
   },
   {
-    start_time: new Date(),
-    end_time: new Date(),
-    status: 'open',
+    start_time: new Date(new Date().getTime() + (7)*60*1000),
+    end_time: new Date(new Date().getTime() + (9)*60*1000),
+    status: 'closed',
     current_price: 200,
     seller_id: 3, // Set to an existing seller's ID
     item_name: 'Dummy Item 3',
@@ -262,10 +265,13 @@ const dummyAuction = [
 const createAuction = async (dummyAuction) => {
   for (let i = 0; i < dummyAuction.length; i++) {
     const newAuction = await Auction.create(dummyAuction[i]);
-    // console.log(newAuction.id)
+    // console.log(newAuction.toJSON())
+    // console.log(new Date(new Date().getTime() + (7)*60*1000))
+    await auctionEvent.createAuctionEvents(newAuction.toJSON())
   }
 };
 
+// createAuction(dummyAuction)
 
 const dummyFollow = [
   {

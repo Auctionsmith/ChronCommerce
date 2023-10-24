@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
@@ -16,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
 
-// const session = require('express-session');
+
 const RedisStore = require('connect-redis').default;
 const { createClient } = require('redis');
 
@@ -30,12 +32,11 @@ const client = createClient({
 
 client.connect()
 
-const store = new RedisStore({ client: client, prefix: "myapp:"});
+const store = new RedisStore({ client: client, prefix: "myapp:", ttl: 60});
 
-// const app = require('express')();
 
 app.use(session({
-    secret: 'your_secret_key',  // replace with your own secret key
+    secret: 'your_secret_key',
     resave: false,
     saveUninitialized: true,
     store: store

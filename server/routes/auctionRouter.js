@@ -5,6 +5,12 @@ const auctionController = require("../controllers/auctionController");
 router.get("/", auctionController.getAllAuctions, (req, res) => {
   return res.status(200).json(res.locals.auctions);
 });
+router.get("/random", auctionController.getRandomAuction, (req,res)=>{
+  return res.status(200).json(res.locals.auction)
+})
+router.get("/random", auctionController.getRandomAuction, (req,res)=>{
+  return res.status(200).json(res.locals.auction)
+})
 
 router.get("/:id", auctionController.getAuction, (req, res) => {
   return res.status(200).json(res.locals.auction)
@@ -23,6 +29,7 @@ router.delete("/:id", auctionController.deleteAuction, (req, res) => {
 router.patch("/:id", auctionController.updateAuction, (req,res)=>{
   return res.status(200).json(res.locals.auction)
 })
+
 
 // router.patch("/:id", listingController.updateListing, (req, res) => {
 //   return res.status(200).json(res.locals.updatedListing);

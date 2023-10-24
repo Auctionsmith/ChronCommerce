@@ -4,6 +4,7 @@ const SALT_WORK_FACTOR = 12;
 const passport = require("passport");
 const { User, Auction, followedAuctions } = require('../db/models.js');
 
+
 const authController = {};
 
 authController.createUser = async (req, res, next) => {
@@ -46,12 +47,13 @@ authController.logout = (req, res, next) => {
 };
 
 authController.getUser = (req, res, next) => {
+  console.log(req.isAuthenticated())
   if(req.isAuthenticated()) {
-    res.lcoals.user = req.user;
+    res.locals.user = req.user;
     return next();
   }
   // add error details below
-  return next(err);
+  res.status(200).send('No User Found')
 }
 
 //   const client = await pool.connect()

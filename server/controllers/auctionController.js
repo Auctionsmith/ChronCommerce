@@ -1,17 +1,17 @@
+
 const {Auction} = require('../db/models')
+const auctionEvent = require('../middleware/auctionEvent');
+
 
 const auctionController = {};
 
 auctionController.getAllAuctions = async (req,res,next) => {
-  // Add Error of Empty Auctions Array
   try {
-    const auctions = (await Auction.findAll()).map((auction)=>auction.toJSON())
-    console.log(auctions)
+    const auctions = (await Auction.findAll({where: {...req.query}})).map((auction)=>auction.toJSON())
     res.locals.auctions = auctions
     return next()
   } catch (error) {
     return next(error)
-    
   }
 }
 
@@ -59,9 +59,11 @@ auctionController.createAuction = async (req,res,next) => {
       if (!requiredInputs.every((input)=>Object.keys(req.body).includes(input))) {
         throw new Error('Auction cannot be created without valid inputs')
       }
-      // This creates an Auction without actually saving it to DB
-      const newAuction = Auction.build(req.body)
-
+      
+      const newAuction = await Auction.create(req.body)
+  
+      // Uncomment for AWS Automation
+      // await auctionEvent.createAuctionEvents(newAuction.toJSON())
 
       res.locals.auction = newAuction
       return next()
@@ -81,10 +83,12 @@ auctionController.deleteAuction = async (req,res,next) => {
     }
 
     const auction = await Auction.findByPk(id);
-
+    
     if (!auction) {
       throw new Error('No auction found')
     }
+    // Uncomment for AWS Automation
+    // await auctionEvent.deleteAuctionEvents(auction.toJSON())
 
     await auction.destroy();
     return next()
@@ -119,11 +123,30 @@ auctionController.updateAuction = async (req,res,next) => {
       returning: true
     });
 
+    // Uncomment for AWS Automation
+    // await auctionEvent.editAuction(updatedAuction.toJSON())
     res.locals.auction = updatedAuction;
     return next()
   } catch (error) {
     return next({message: error.message, origin: 'auctionController.updateAuction'});
   }
+}
+
+auctionController.getRandomAuction = async (req,res,next) => {
+  try {
+    const auctions = (await Auction.findAll()).map((auction)=>auction.toJSON())
+    // res.locals.auction = auctions
+    const randomAuction = auctions[Math.floor(Math.random() * auctions.length)]
+    res.locals.auction = randomAuction
+    return next()
+    
+  } catch (error) {
+    return next({message: error.message, origin: 'auctionController.getAuction'})
+  }
+}
+
+auctionController.getOpenAuctions = async (req,res,next) => {
+
 }
 
 module.exports = auctionController

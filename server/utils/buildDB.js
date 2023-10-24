@@ -15,4 +15,4 @@ const getUser = async (username) => {
 })
 };
 
-getUser('john.doe@example.com')
+// getUser('john.doe@example.com')
