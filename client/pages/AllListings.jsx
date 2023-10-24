@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ListingInfo from "./components/ListingInfo.jsx";
+import ListingInfo from "../components/ListingInfo.jsx";
 
 export const AllListings = () => {
 
@@ -14,16 +14,6 @@ export const AllListings = () => {
             console.error("Error fetching data:", error);
         }
     }
-
-    // const getItemsByCategory = async (categoryId) => {
-    //     try {
-    //         const res = await fetch(`http://localhost:3000/listing/${listingId}`);
-    //         const data = await res.json();
-    //         setItems(data);
-    //     } catch (error) {
-    //         console.error("Error fetching data:", error);
-    //     }
-    // }
 
     const populateItems = () => {
         // if (categoryId) {
