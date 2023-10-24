@@ -74,10 +74,11 @@ userController.deleteUser = async (req, res, next) => {
 }
 
 userController.followAuction = async (req,res,next) => {
-  const {auctionId} = req.body
+  const {auctionId} = req.params
   try {
     const auction = await Auction.findByPk(auctionId)
-    
+    console.log(auction)
+    return next()
   } catch (error ) {
     return next({message: error.message, origin: 'userController.followAuction'});
   }

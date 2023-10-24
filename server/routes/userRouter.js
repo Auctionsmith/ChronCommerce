@@ -15,6 +15,10 @@ router.delete('/', userController.deleteUser, (req,res)=>{
   return res.sendStatus(200)
 })
 
+router.post('/followAuction/:auctionId', userController.followAuction, (req,res) => {
+  return res.sendStatus(200)
+})
+
 router.get('/hostedAuctions', (req,res)=> {
   return res.status(200).json(res.locals.auctions)
 })
