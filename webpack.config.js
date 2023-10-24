@@ -11,11 +11,6 @@ module.exports = {
         publicPath: '/',
     },
     mode : "development",
-    devServer: {
-        port: 3000,
-        hot: true,
-        open: true
-    },
     module: {
         rules: [
             {
@@ -54,8 +49,6 @@ module.exports = {
         proxy: {
             '/': 'http://localhost:3000',
         },
-        hot: true,
-        open : true,
         historyApiFallback: true
     },
     devtool: 'source-map'

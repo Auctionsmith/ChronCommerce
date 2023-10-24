@@ -10,9 +10,9 @@ const AllListings = () => {
     <AllListingsContainer>
     {allItems.map((listing) => {
       return <Listing 
+      key={listing.seller_id}
       name={listing.item_name} 
       price={listing.current_price}
-      key={listing.seller_id}
       id={listing.seller_id}
       img={listing.img_url}
       endTime={listing.end_time}
