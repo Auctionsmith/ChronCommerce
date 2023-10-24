@@ -77,6 +77,12 @@ app.use("/image", imageRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
 
+app.get("*", (req, res) => {
+  console.log("no build");
+  res
+    .status(200)
+    .sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   const defaultErr = {

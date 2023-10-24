@@ -1,6 +1,32 @@
-body {
-background-color: #F0F0F0;;
+
+// Colors
+
+:root {
+/* CSS reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+    margin:0;
+    padding:0;
+    font-family: 'Montserrat';
 }
-.signup{
-    display: block;
+html,body {
+    margin:0;
+    padding:0;
 }
+    --primary-color: #ff916f;
+    --secondary-color: #f6bb54;
+    --background-color: #f4f3ee;
+    --bid-button-color: #2aa17a;
+    --nav-button-color: #d2d0c6;
+}
+
+
+
+// .homeDiv{
+//     $secondary-color: #f6bb54;
+// }
+
+// #ff916f //accent color
+// #f4f3ee //background color
+// #f6bb54 //component, buy now button
+// #2aa17a //bid button
+// #d2d0c6

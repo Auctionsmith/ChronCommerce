@@ -4,12 +4,20 @@ import styled from 'styled-components'
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { setSearchResultItems } from '../../slices/auctionItemsSlice'
+import CategoriesSB from '../ScrollBars/CategoriesSB'
 
 const SearchBar = () => {
   const dispatch = useDispatch()
  
   const selectRef = useRef(null);
   const searchRef = useRef(null);
+
+  const printSelectCat = (event) => {
+    event.preventDefault();    
+
+   
+    console.log(searchRef.current.value)
+  }
 
   const search = async (event) => {
     event.preventDefault();
@@ -28,10 +36,11 @@ const SearchBar = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={search} >
+    <SeachWrapper>
+      <SeachFormWrapper onSubmit={printSelectCat} >
       <input type="text" placeholder="Search..." ref={searchRef}/>
-        <select id="Search-categories" ref={selectRef}>
+      <CategoriesSB selectRef={selectRef}/>
+        {/* <select id="Search-categories" ref={selectRef}>
           <option value="allcategories">All Categories</option>
           <option value="motors">Motors</option>
           <option value="clothing&accessories">Clothing & Accessories</option>
@@ -42,16 +51,21 @@ const SearchBar = () => {
           <option value="collectibles&art">Collectibles & Art</option>
           <option value="home&garden">Home & Garden</option>
           <option value="othercategories">Other Categories</option>
-        </select>
+        </select> */}
       <button type="submit">Search</button>
-      </form>
-    </div>
+      </SeachFormWrapper>
+    </SeachWrapper>
   )
 }
 
 const SeachWrapper = styled.div`
 display: flex;
 flex-direction: row;
+`
+const SeachFormWrapper = styled.div`
+display: flex;
+flex-direction: row;
+padding: 1em;
 `
 
 export default SearchBar;

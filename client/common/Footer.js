@@ -12,6 +12,8 @@ const Footer = () => {
 const Foot = styled.div`
 display: flex;
 justify-content: center;
-
+background-color: var(--secondary-color);
+height: 3em;
+padding: 2em;
 `
 export default Footer;
