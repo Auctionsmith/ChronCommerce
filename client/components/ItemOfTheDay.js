@@ -19,9 +19,9 @@ const ItemOfTheDay = () => {
         </ImageContainer>
         <DescriptionContainer>
             <h2>Name: {randomItem.item_name}</h2>
-            <h4>Ends In {randomItem.end_time}</h4>
-            <h4>Current Bid {randomItem.current_price}</h4>
-            <button>Bid</button>
+            <h4>Ends In: {randomItem.end_time}</h4>
+            <h4>Current Bid: {randomItem.current_price}</h4>
+            <IODBidButton>Bid</IODBidButton>
         </DescriptionContainer>
         </DayWrapper>
   )
@@ -30,10 +30,11 @@ const ItemOfTheDay = () => {
 const DayWrapper = styled.div`
 display: flex;
 flex-direction: row;
+align-items: center;
+justify-content: center;
+background-color: var(--primary-color);
 height: 300px;
-margin: 20px 20px 20px 40px;
 gap: 20px;
-width: 95%
 `
 
 const ImageContainer = styled.div`
@@ -41,20 +42,24 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-background-color: blue;
 color: white;
 width: 24rem;
 img{
     height: 24rem;
     width: 24rem;
-    border: 10px solid black;
 }
+`
+const IODBidButton = styled.button`
+background-color: var(--bid-button-color);
+padding: 1rem;
+border-radius: 1em;
 `
 
 
 const DescriptionContainer = styled.div`
 display: flex;
 flex-direction: column;
+gap: 1em;
 `
 
 export default ItemOfTheDay

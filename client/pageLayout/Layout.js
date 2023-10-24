@@ -43,9 +43,6 @@ const Pages = () => {
                     <Route />
                 </Route>
             </Routes>
-            <Routes>
-                    
-                </Routes>
         </Router>
         </>
     )
@@ -53,7 +50,7 @@ const Pages = () => {
 
 
 const PageContainer = styled.div`
-background-color: #F0F0F0;
+background-color: var(--background-color);
 `
 
 export default Pages;

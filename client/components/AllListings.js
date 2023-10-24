@@ -24,6 +24,7 @@ const AllListings = () => {
 
 const AllListingsContainer = styled.div`
 display: grid;
+background-color: var(--background-color);
 justify-content: center;
   grid-template-columns: repeat(4, minmax(50px, 1fr));
   grid-gap: 5rem;

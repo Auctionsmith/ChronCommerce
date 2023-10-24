@@ -41,7 +41,8 @@ const HeaderWrapper = styled.header`
 display: flex;
 flex-direction: row;
 justify-content: space-evenly;
-background-color: $secondary-color;
+background-color: var(--secondary-color);
+padding:1em;
 `
 
 const Image = styled.img`

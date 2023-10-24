@@ -11,22 +11,11 @@ const Listing = ( { name, img, price, endTime, id } ) => {
       <p>Name :{name}</p>
       <p>Price : {price}</p>
       <p>Ends at {endTime}</p>
-      <p>test {id}</p>
       <Link to={`/${id}`}>Individual Item</Link>
     </ItemContainer>
   )
 }
 
-const testContainer = styled.div`
-display: flex;
-flex-direction: column;
-height: 15 rem;
-width: 15 rem;
-&:hover {
-  transform: translateY(-0.5rem);
-  box-shadow: 0.5rem 0.75rem 1.5rem #bbbbbb;
-}
-`
 
 const ItemContainer = styled.div`
 display: flex;
@@ -36,11 +25,9 @@ width : 14rem;
 background-color : #F7F7F7;
 transition: 0.2s;
 border-radius: 1rem;
-padding: 1rem;
 p {
-  margin: 2px;
+  margin: 2px;;
 }
-flex: 1 0 25rem;
 transition: 0.2s;
 
 @media(max-width: 1020px) {

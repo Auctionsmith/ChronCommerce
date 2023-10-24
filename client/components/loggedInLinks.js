@@ -25,8 +25,11 @@ const LoggedInLinks = () => {
 }
 
 const StyledLoggedInLink = styled(NavLink)`
-color : #053B50;
+background-color: var(--nav-button-color);
+color: black;
+border-radius:.5em;
 padding: 10px;
+text-decoration: none;
 `
 
 const LoggedInLinksWrapper = styled.div`

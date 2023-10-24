@@ -65,6 +65,7 @@ flex-direction: row;
 const SeachFormWrapper = styled.div`
 display: flex;
 flex-direction: row;
+padding: 1em;
 `
 
 export default SearchBar;

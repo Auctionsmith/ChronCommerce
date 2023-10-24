@@ -5,21 +5,19 @@ import ItemOfTheDay from "../components/ItemOfTheDay";
 import AllListings from "../components/AllListings";
 
 
-
 const Home = () => {
     return (
         <>        
-        <Search>
+        <Search className="homeDiv">
         <SearchBar/>
      
         </Search>
-        <hr></hr>
+    
         <ItemOfTheDay/>
         <HotDealsTag>Hot Deals!</HotDealsTag>
         <Container>
         <AllListings />
         </Container>
-        <hr></hr>
         </>
     )
 }
@@ -29,9 +27,7 @@ const Search = styled.div`
 display: flex;
 justify-content: center;
 margin: auto;
-margin-top: 1rem;
-border : solid 0.5px;
-width : 25rem;
+background-color: var(--secondary-color);
 `
 const StyledInput = styled.input`
 font-size: 1rem;
@@ -40,11 +36,12 @@ padding: 0px;
 `
 const HotDealsTag = styled.h2`
 margin-left: 4rem;
+backgoround-color: var(--background-color);
 `
 
 const Container = styled.div`
 display: flex;
-background-color: white;
+background-color: var(--background-color);
 padding: 1rem;
 `
 export default Home;
