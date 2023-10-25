@@ -231,6 +231,24 @@ userController.getHostedAuctions = async (req,res,next) => {
   }
 }
 
+userController.getOpenBids = async (req,res,next) => {
+  try {
+    if (!req.user) {
+      throw new Error('No user found')
+    }
+    const {id} = req.user
+    const openAuctions = await Auction.findAll({
+      where: {
+        buyer_id : id,
+        status: 'open'
+      }
+    }) 
+    res.locals.auctions = openAuctions
+    return next()
+  } catch (error) {
+    return next({message: error.message, origin: 'userController.getWonAuctions'});
+  }
+}
 
 
 module.exports = userController
