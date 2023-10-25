@@ -36,16 +36,11 @@ router.post("/upload", upload.single('auctionImage'), (req, res) => {
   console.log(req.body.name);
   res.status(200).send('Successfully uploaded');
 });
-//imageController.uploadToJSON
+
 
 module.exports = upload;
 
 // router.get("/", imageController.getImage, (req, res, next) => {
-//   const { url } = res.locals;
-//   return res.status(200).json(url);
-// });
-
-// router.post("/upload", upload.single('imageField'), imageController.uploadToS3, (req, res, next) => {
 //   const { url } = res.locals;
 //   return res.status(200).json(url);
 // });
