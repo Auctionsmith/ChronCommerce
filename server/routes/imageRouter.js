@@ -3,15 +3,18 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+const s3 = require("../config/S3Config.js");
 const imageController = require("../controllers/imageController");
 
+
+
 const storage = multerS3({
-  s3: s3Client,
-  bucket: AWS_BUCKET_NAME,
+  s3: s3,
+  bucket: process.env.AWS_BUCKET_NAME,
   metadata: function (req,file,cb) {
       cb(null, {fieldName: file.fieldname})
     },
-    key: function (req,file,cb) {
+    key: function (req, file, cb) {
       cb(null, Date.now().toString())
     }
   })
@@ -28,6 +31,15 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage, limits, fileFilter });
 
+router.post("/upload", upload.single('auctionImage'), /*imageController.uploadToJSON,*/ (req, res) => {
+  res.status(200).send('Successfully uploaded');
+});
+
+
+module.exports = router;
+
+
+
 // router.get("/", imageController.getImage, (req, res, next) => {
 //   const { url } = res.locals;
 //   return res.status(200).json(url);
@@ -37,9 +49,3 @@ const upload = multer({ storage, limits, fileFilter });
 //   const { url } = res.locals;
 //   return res.status(200).json(url);
 // });
-
-router.post("/upload", upload.single('auctionImage'), imageController.uploadToS3, (req, res) => {
-  res.send('Successfully uploaded');
-});
-
-module.exports = router;
