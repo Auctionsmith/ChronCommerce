@@ -21,7 +21,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.(scss)$/,
+                test: /\.s[ac]ss$/i,
                 use: [
                     'style-loader',
                     'css-loader',
@@ -49,6 +49,7 @@ module.exports = {
         proxy: {
             '/': 'http://localhost:3000',
         },
+        port: 8080,
         historyApiFallback: true
     },
     devtool: 'source-map'

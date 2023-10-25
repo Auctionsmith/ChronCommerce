@@ -1,6 +1,6 @@
 
 const {Auction} = require('../db/models')
-const auctionEvent = require('../middleware/auctionEvent');
+const auctionEvent = require('../services/auctionEvent');
 
 
 
@@ -23,7 +23,6 @@ auctionController.getAuction = async (req,res,next) => {
     const auction = (await Auction.findOne({
       where: {id}
     }))
-    console.log(auction)
     if (!auction) {
       throw new Error('No auction found with that id')
     }
@@ -106,6 +105,7 @@ auctionController.updateAuction = async (req,res,next) => {
   'end_time',
   'status',
   'current_price',
+  'buyer_id',
   'seller_id',
   'item_name',
   'img_url',
@@ -138,7 +138,6 @@ auctionController.updateAuction = async (req,res,next) => {
 auctionController.getRandomAuction = async (req,res,next) => {
   try {
     const auctions = (await Auction.findAll()).map((auction)=>auction.toJSON())
-    // res.locals.auction = auctions
     const randomAuction = auctions[Math.floor(Math.random() * auctions.length)]
     res.locals.auction = randomAuction
     return next()
@@ -149,7 +148,7 @@ auctionController.getRandomAuction = async (req,res,next) => {
 }
 
 auctionController.getOpenAuctions = async (req,res,next) => {
-
+  return res.sendStatus(200)
 }
 
 module.exports = auctionController

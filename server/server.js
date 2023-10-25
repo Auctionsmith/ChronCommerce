@@ -66,17 +66,23 @@ const listingRouter = require('./routes/listingRouter');
 const cartRouter = require('./routes/cartRouter');
 const auctionRouter = require('./routes/auctionRouter');
 const userRouter = require('./routes/userRouter');
-
+const protectedRoute = require('./middleware/protectedRoute')
 
 app.use('/', express.static(path.join(__dirname, '../dist')));
 
 app.use("/auction", auctionRouter)
-app.use("/user", userRouter)
+app.use("/user", protectedRoute, userRouter)
 app.use("/listing", listingRouter);
 //app.use("/image", imageRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
 
+app.get("*", (req, res) => {
+  console.log("no build");
+  res
+    .status(200)
+    .sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   const defaultErr = {

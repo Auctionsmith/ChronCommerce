@@ -1,10 +1,10 @@
 import React from "react";
 import { Navigate, BrowserRouter, Routes, Route } from "react-router-dom";
 import "./styles/App.scss";
-import Pages from "./pages/pageLayout/Layout";
-import { AllListings } from "./pages/AllListings/AllListings.jsx";
-import Login from "./pages/SignInUp/Login";
-import SignUp from "./pages/SignInUp/SignUp";
+import Pages from "./pageLayout/Layout";
+import { AllListings } from "./pages/AllListings.jsx";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 const App  = () => {
 

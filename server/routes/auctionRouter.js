@@ -9,11 +9,7 @@ router.get("/", auctionController.getAllAuctions, (req, res) => {
 router.get("/random", auctionController.getRandomAuction, (req,res)=>{
   return res.status(200).json(res.locals.auction)
 })
-router.get("/random", auctionController.getRandomAuction, (req,res)=>{
-  return res.status(200).json(res.locals.auction)
-})
-
-router.get("/:id", auctionController.getAuction, (req, res) => {
+router.post("/", auctionController.createAuction, (req, res) => {
   return res.status(200).json(res.locals.auction)
 });
 
@@ -23,7 +19,6 @@ router.post("/", upload.single('auctionImage'), auctionController.createAuction,
 });
 
 router.delete("/:id", auctionController.deleteAuction, (req, res) => {
-  // Add res.locals if needed
   return res.sendStatus(200)
 });
 
@@ -31,13 +26,5 @@ router.patch("/:id", auctionController.updateAuction, (req,res)=>{
   return res.status(200).json(res.locals.auction)
 })
 
-
-// router.patch("/:id", listingController.updateListing, (req, res) => {
-//   return res.status(200).json(res.locals.updatedListing);
-// });
-
-// router.delete("/:id", listingController.deleteListing, (req, res) => {
-//   return res.status(200).json(res.locals.deletedListing);
-// });
 
 module.exports = router;
