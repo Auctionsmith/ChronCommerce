@@ -19,17 +19,31 @@ const LoggedInLinks = () => {
         <StyledLoggedInLink to={"/checkout"}>
             <FaRegBell/>
         </StyledLoggedInLink>
-        <button onClick={handleLogout}>Logout</button>
+        <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
     </LoggedInLinksWrapper>
   )
 }
 
 const StyledLoggedInLink = styled(NavLink)`
-background-color: var(--nav-button-color);
 color: black;
-border-radius:.5em;
 padding: 10px;
 text-decoration: none;
+font-size: 1.25em;
+&:hover {
+  text-decoration: underline;
+}
+`
+
+const LogoutButton = styled.button`
+color: black;
+padding: 10px;
+background-color: transparent;
+border: none;
+text-decoration: none;
+font-size: 1.25em;
+&:hover {
+  text-decoration: underline;
+}
 `
 
 const LoggedInLinksWrapper = styled.div`

@@ -23,6 +23,7 @@ const CategoriesSB = ({ selectRef }) => {
 const CategoriesContainer = styled.div`
 display: flex;
 flex-direction: row;
+height: 2em;
 `
 
 export default CategoriesSB

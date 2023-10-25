@@ -36,9 +36,9 @@ const SearchBar = () => {
   }
 
   return (
-    <SeachWrapper>
+    <>
       <SeachFormWrapper onSubmit={printSelectCat} >
-      <input type="text" placeholder="Search..." ref={searchRef}/>
+      <SearchInput type="text" placeholder="  Search..." ref={searchRef}/>
       <CategoriesSB selectRef={selectRef}/>
         {/* <select id="Search-categories" ref={selectRef}>
           <option value="allcategories">All Categories</option>
@@ -52,20 +52,26 @@ const SearchBar = () => {
           <option value="home&garden">Home & Garden</option>
           <option value="othercategories">Other Categories</option>
         </select> */}
-      <button type="submit">Search</button>
+      <SearchButton type="submit">Search</SearchButton>
       </SeachFormWrapper>
-    </SeachWrapper>
+    </>
   )
 }
 
-const SeachWrapper = styled.div`
-display: flex;
-flex-direction: row;
-`
+
+
 const SeachFormWrapper = styled.div`
 display: flex;
 flex-direction: row;
-padding: 1em;
+`
+
+const SearchInput = styled.input`
+width: 20em;
+height: 2em;
+`
+
+const SearchButton = styled.button`
+width: 10em;
 `
 
 export default SearchBar;

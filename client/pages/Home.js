@@ -8,16 +8,17 @@ import AllListings from "../components/AllListings";
 const Home = () => {
     return (
         <>        
-        <Search className="homeDiv">
+        <Search>
         <SearchBar/>
      
         </Search>
-    
+        <TitleAndListingsWrapper>
         <ItemOfTheDay/>
         <HotDealsTag>Hot Deals!</HotDealsTag>
         <Container>
         <AllListings />
         </Container>
+        </TitleAndListingsWrapper>
         </>
     )
 }
@@ -26,8 +27,14 @@ const Home = () => {
 const Search = styled.div`
 display: flex;
 justify-content: center;
-margin: auto;
 background-color: var(--secondary-color);
+height: 3em;
+`
+// not necessary div, trying to figure out bottom padding
+const TitleAndListingsWrapper = styled.div`
+display: flex;
+flex-direction: column;
+padding: 10em;
 `
 const StyledInput = styled.input`
 font-size: 1rem;

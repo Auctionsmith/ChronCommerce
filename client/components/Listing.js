@@ -11,16 +11,25 @@ const Listing = ( { name, img, price, endTime, id } ) => {
       <p>Name :{name}</p>
       <p>Price : {price}</p>
       <p>Ends at {endTime}</p>
-      <Link to={`/${id}`}>Individual Item</Link>
+      <ItemDetailsLink to={`/${id}`}>View Auction Details</ItemDetailsLink>
     </ItemContainer>
   )
 }
 
 
+
+const ItemDetailsLink = styled(Link)`
+color: black;
+border-radius:.5em;
+padding: 10px;
+text-decoration: none;
+background-color: var(--bid-button-color);
+`
+
 const ItemContainer = styled.div`
 display: flex;
 flex-direction: column;
-height : 16rem;
+height : 18em;
 width : 14rem;
 background-color : #F7F7F7;
 transition: 0.2s;

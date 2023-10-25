@@ -18,9 +18,9 @@ const ItemOfTheDay = () => {
     <img src={randomItem.img_url}/>
         </ImageContainer>
         <DescriptionContainer>
-            <h2>Name: {randomItem.item_name}</h2>
-            <h4>Ends In: {randomItem.end_time}</h4>
-            <h4>Current Bid: {randomItem.current_price}</h4>
+            <p>Name: {randomItem.item_name}</p>
+            <p>Ends In: {randomItem.end_time}</p>
+            <p>Current Bid: <b>{randomItem.current_price}</b></p>
             <IODBidButton>Bid</IODBidButton>
         </DescriptionContainer>
         </DayWrapper>
@@ -45,8 +45,8 @@ justify-content: center;
 color: white;
 width: 24rem;
 img{
-    height: 24rem;
-    width: 24rem;
+    height: 18rem;
+    width: 18rem;
 }
 `
 const IODBidButton = styled.button`

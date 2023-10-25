@@ -42,7 +42,7 @@ display: flex;
 flex-direction: row;
 justify-content: space-evenly;
 background-color: var(--secondary-color);
-padding:1em;
+padding: 1em;
 `
 
 const Image = styled.img`
@@ -56,15 +56,6 @@ display: flex;
 list-style: none;
 align-self: center;
 gap: 25px;
-`
-const BellNavLink = styled(NavLink)`
-padding: 10px;
-background-color: white;
-`
-
-const StyledNavLink = styled(NavLink)`
-color : #053B50;
-padding: 10px;
 `
 
 const HeaderContainer = styled.div`
