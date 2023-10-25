@@ -1,11 +1,12 @@
 require("dotenv").config();
 const { S3Client } = require("@aws-sdk/client-s3");
 
-exports.s3 = new S3Client({
+//console.log(process.env.JAWS_ACCESS_KEY_ID);
+
+module.exports = new S3Client({
   region: process.env.AWS_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-  },
-  signatureVersion: "v4",
+    accessKeyId: process.env.JAWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.JAWS_SECRET_ACCESS_KEY
+  }
 });

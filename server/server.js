@@ -62,7 +62,7 @@ require('../server/config/passport-config.js')(passport);
 
 const authRouter = require("./routes/authRouter");
 const listingRouter = require('./routes/listingRouter');
-const imageRouter = require('./routes/imageRouter');
+//const imageRouter = require('./routes/imageRouter');
 const cartRouter = require('./routes/cartRouter');
 const auctionRouter = require('./routes/auctionRouter');
 const userRouter = require('./routes/userRouter');
@@ -73,7 +73,7 @@ app.use('/', express.static(path.join(__dirname, '../dist')));
 app.use("/auction", auctionRouter)
 app.use("/user", userRouter)
 app.use("/listing", listingRouter);
-app.use("/image", imageRouter);
+//app.use("/image", imageRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
 

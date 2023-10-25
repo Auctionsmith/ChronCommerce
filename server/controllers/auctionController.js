@@ -3,6 +3,7 @@ const {Auction} = require('../db/models')
 const auctionEvent = require('../middleware/auctionEvent');
 
 
+
 const auctionController = {};
 
 auctionController.getAllAuctions = async (req,res,next) => {
@@ -36,6 +37,8 @@ auctionController.getAuction = async (req,res,next) => {
 
 auctionController.createAuction = async (req,res,next) => {
   // Finish createMethod
+  console.log(req.body);
+
   const {start_time,
     end_time,
     status,
@@ -52,7 +55,7 @@ auctionController.createAuction = async (req,res,next) => {
       'current_price',
       'seller_id',
       'item_name',
-      'img_url',
+      //'img_url',
       'category',
       'description']
     try {
@@ -60,7 +63,7 @@ auctionController.createAuction = async (req,res,next) => {
         throw new Error('Auction cannot be created without valid inputs')
       }
       
-      const newAuction = await Auction.create(req.body)
+      const newAuction = await Auction.create({...req.body, img_url: req.file.location })
   
       // Uncomment for AWS Automation
       // await auctionEvent.createAuctionEvents(newAuction.toJSON())

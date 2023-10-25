@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auctionController = require("../controllers/auctionController");
+const upload = require("./imageRouter.js")
 
 router.get("/", auctionController.getAllAuctions, (req, res) => {
   return res.status(200).json(res.locals.auctions);
@@ -16,7 +17,7 @@ router.get("/:id", auctionController.getAuction, (req, res) => {
   return res.status(200).json(res.locals.auction)
 });
 
-router.post("/", auctionController.createAuction, (req, res) => {
+router.post("/", upload.single('auctionImage'), auctionController.createAuction, (req, res) => {
   // Add res.locals
   return res.status(200).json(res.locals.auction)
 });
