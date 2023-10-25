@@ -9,6 +9,17 @@ router.post("/login", passport.authenticate('local', {failureMessage: 'User is n
   return res.status(200).json(req.user);
 });
 
+router.get("/google",
+    passport.authenticate('google', { scope: ['email', 'profile'] }),
+    (req, res) => {
+      return res.sendStatus(200);
+})
+
+router.get("/google/callback", passport.authenticate('google', { failureRedirect: '/register' }), (req, res) => {
+  // successful authenication, redirect to dashboard/homepage
+  return res.status(200).redirect('/');
+})
+
 router.post("/register", authController.createUser, (req, res) => {
   return res.status(200).send('Account creation success');
 });

@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require("passport-local").Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcrypt');
 const { User, Auction, followedAuctions } = require('../db/models.js');
 
@@ -31,6 +32,37 @@ module.exports = function () {
       done(err);
     }
   })
+
+passport.use(new GoogleStrategy({
+    clientID: '962220687338-1vogif80pldh0d8d50ci2j7s60h2hegn.apps.googleusercontent.com',
+    clientSecret: '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',
+    callbackURL: 'http://localhost:3000/auth/google/callback',
+    passReqToCallback: true,
+  },
+  async function (request, accessToken, refreshToken, profile, done) {
+    console.log(profile)
+    const foundUser = await User.findOne({where : {email: profile.emails[0]['value']}})
+    // check database for profile's email
+    if(!foundUser) {
+    // create user in database here
+     const createdUser = await User.create({
+        address: '789 Oak St',
+        city: 'Capital City',
+        state: 'IL',
+        zip: 62706,
+        first_name: 'Emily',
+        last_name: 'Smith',
+        email: profile.emails[0]['value'],
+        phone: 1122334455,
+        password: 'password789',
+      })
+      return done(null, createdUser)
+    }
+
+
+    return done(null, foundUser);
+  }))
+
 }
 
 
