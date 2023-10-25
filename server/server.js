@@ -68,7 +68,7 @@ const auctionRouter = require('./routes/auctionRouter');
 const userRouter = require('./routes/userRouter');
 const protectedRoute = require('./middleware/protectedRoute')
 
-app.use('/', express.static(path.join(__dirname, '../dist')));
+app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 app.use("/auction", auctionRouter)
 app.use("/user", userRouter)
@@ -78,6 +78,7 @@ app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
 
 app.get("*", (req, res) => {
+  console.log(req.path)
   res
     .status(200)
     .sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
