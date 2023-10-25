@@ -14,6 +14,7 @@ const initialState = {
   },
   LoggedIn: true,
   openBids: [],
+  followedItems: [],
   wonItems: [],
   purchaseHistory: [],
   itemsForSale: [],
@@ -32,8 +33,11 @@ export const userSlice = createSlice({
     logout: (state, action) => {
       state.LoggedIn = false;
     },
-    addBid: (state, action) => {
-      state.openBids = state.openBids.push(action.payload);
+    getAllOpenBids: (state, action) => {
+      state.openBids = action.payload;
+    },
+    getFollowedItems: (state, action) => {
+      state.followedItems = action.payload;
     },
     addWonItem: (state, action) => {
       state.wonItems = state.wonItems.push(action.payload);
@@ -47,6 +51,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { getUserInfo, login, logout, addBid, addWonItem, addPurchaseHistory, sellItem } =
+export const { getUserInfo, login, logout, getAllOpenBids, addWonItem, addPurchaseHistory, sellItem, getFollowedItems } =
   userSlice.actions;
 export default userSlice.reducer;

@@ -72,6 +72,9 @@ height: 2em;
 
 const SearchButton = styled.button`
 width: 10em;
+height: 3em;
+margin-left: 2em;
+margin-bottom: 2em;
 `
 
 export default SearchBar;

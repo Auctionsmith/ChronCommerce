@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 const ItemOfTheDay = () => {
@@ -14,6 +15,8 @@ const ItemOfTheDay = () => {
     // key={listing.item_name}
     // img={listing.img_url}
     // endTime={listing.end_time}
+
+    // please note: seller_id needs to be updated to id from DB
     useEffect(()=>{
         axios.get('/auction/random')
             .then((data)=> setitemOfTheDay(()=>data.data))
@@ -30,7 +33,7 @@ const ItemOfTheDay = () => {
             <p>Name: {itemOfTheDay.item_name}</p>
             <p>Ends In: {itemOfTheDay.end_time}</p>
             <p>Current Bid: <b>{itemOfTheDay.current_price}</b></p>
-            <IODBidButton>Bid</IODBidButton>
+            <IADetailsLink to={`/${itemOfTheDay.seller_id}`}>Get More Details</IADetailsLink>
         </DescriptionContainer>
         </DayWrapper>
   )
@@ -44,6 +47,14 @@ justify-content: center;
 background-color: var(--primary-color);
 height: 300px;
 gap: 20px;
+`
+
+const IADetailsLink = styled(Link)`
+color: black;
+border-radius:.5em;
+padding: 10px;
+text-decoration: none;
+background-color: var(--bid-button-color);
 `
 
 const ImageContainer = styled.div`

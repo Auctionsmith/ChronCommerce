@@ -9,7 +9,7 @@ const Listing = ( { name, img, price, endTime, id } ) => {
     <ItemContainer >
       <img src={img} alt="A picture of the item up for auction"/>
       <p>Name :{name}</p>
-      <p>Price : {price}</p>
+      <p>Price : <b>{price}</b></p>
       <p>Ends at {endTime}</p>
       <ItemDetailsLink to={`/${id}`}>View Auction Details</ItemDetailsLink>
     </ItemContainer>
