@@ -66,12 +66,12 @@ const imageRouter = require('./routes/imageRouter');
 const cartRouter = require('./routes/cartRouter');
 const auctionRouter = require('./routes/auctionRouter');
 const userRouter = require('./routes/userRouter');
-
+const protectedRoute = require('./middleware/protectedRoute')
 
 app.use('/', express.static(path.join(__dirname, '../dist')));
 
 app.use("/auction", auctionRouter)
-app.use("/user", userRouter)
+app.use("/user", protectedRoute, userRouter)
 app.use("/listing", listingRouter);
 app.use("/image", imageRouter);
 app.use("/auth", authRouter);
