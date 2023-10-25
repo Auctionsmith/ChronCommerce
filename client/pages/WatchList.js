@@ -2,9 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 import Listing from '../components/Listing'
 import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import axios from 'axios'
 
 const WatchList = () => {
   const { openBids } = useSelector((state)=> state.user)
+
+  useEffect(()=>{
+    axios.get('/openBids')
+      .then((res) => res.data)
+      .catch((err)=> console.log(err))
+  }, [])
 
   return (
     <WatchListContainer> {openBids.map((listing) => {

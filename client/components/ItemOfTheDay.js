@@ -1,26 +1,35 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import axios from 'axios'
 
 const ItemOfTheDay = () => {
-    const { allItems } = useSelector((state)=> state.auctionItems)
-    const randomItem = allItems[Math.floor(Math.random() * (allItems.length - 0) + 0)]
-
+    const [itemOfTheDay, setitemOfTheDay] = useState({});
+    // const { allItems } = useSelector((state)=> state.auctionItems)
+    // const randomItem = allItems[Math.floor(Math.random() * (allItems.length - 0) + 0)]
     // name={listing.item_name} 
     // price={listing.current_price}
     // key={listing.item_name}
     // img={listing.img_url}
     // endTime={listing.end_time}
+    useEffect(()=>{
+        axios.get('/auction/random')
+            .then((data)=> setitemOfTheDay(()=>data.data))
+            .catch((err)=> console.log(err))
+    },[])
+
 
   return (
     <DayWrapper>
         <ImageContainer>
-    <img src={randomItem.img_url}/>
+    <img src={itemOfTheDay.img_url}/>
         </ImageContainer>
         <DescriptionContainer>
-            <p>Name: {randomItem.item_name}</p>
-            <p>Ends In: {randomItem.end_time}</p>
-            <p>Current Bid: <b>{randomItem.current_price}</b></p>
+            <p>Name: {itemOfTheDay.item_name}</p>
+            <p>Ends In: {itemOfTheDay.end_time}</p>
+            <p>Current Bid: <b>{itemOfTheDay.current_price}</b></p>
             <IODBidButton>Bid</IODBidButton>
         </DescriptionContainer>
         </DayWrapper>

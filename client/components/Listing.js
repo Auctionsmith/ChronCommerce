@@ -6,7 +6,7 @@ import { Link, useParams } from 'react-router-dom'
 const Listing = ( { name, img, price, endTime, id } ) => {
 
   return (
-    <ItemContainer key={id}>
+    <ItemContainer >
       <img src={img} alt="A picture of the item up for auction"/>
       <p>Name :{name}</p>
       <p>Price : {price}</p>
