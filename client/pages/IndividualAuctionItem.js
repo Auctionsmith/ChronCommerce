@@ -16,7 +16,7 @@ const IndividualAuctionItem = () => {
   const makeBid = (event) => {
     event.preventDefault();
     let bid = bidRef.current.value
-    
+    console.log(bid)
     // axios.post('')
 
   }
@@ -29,6 +29,7 @@ const IndividualAuctionItem = () => {
       <p>Price: <b>{listing.current_price}</b></p>
       <p>Ends at: {listing.end_time}</p>
       <p>Description: {listing.description}</p>
+      <label>Please Enter a Bid Below</label>
       <input type='text' ref={bidRef}/>
       <IABidButton onClick={makeBid}>Bid</IABidButton>
       </DetailsContainer>
