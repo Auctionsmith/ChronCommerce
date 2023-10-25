@@ -1,4 +1,4 @@
-
+const { Op } = require("sequelize");
 const {Auction} = require('../db/models')
 const auctionEvent = require('../services/auctionEvent');
 
@@ -6,8 +6,26 @@ const auctionEvent = require('../services/auctionEvent');
 const auctionController = {};
 
 auctionController.getAllAuctions = async (req,res,next) => {
+  const {search, category, status} = req.query;
+  const searchString = search !== undefined ? `%${search}%` : '%';
+
+  const whereObj = {
+    item_name: {
+      [Op.iLike]: searchString
+    }
+  }
+  if (category !== undefined) {
+    whereObj.category = category;
+  }
+
+  if (status !== undefined) {
+    whereObj.status = status
+  }
+
   try {
-    const auctions = (await Auction.findAll({where: {...req.query}})).map((auction)=>auction.toJSON())
+    const auctions = (await Auction.findAll({
+      where : whereObj
+    })).map((auction)=>auction.toJSON())
     res.locals.auctions = auctions
     return next()
   } catch (error) {
@@ -32,6 +50,7 @@ auctionController.getAuction = async (req,res,next) => {
     
   }
 }
+
 
 auctionController.createAuction = async (req,res,next) => {
   // Finish createMethod

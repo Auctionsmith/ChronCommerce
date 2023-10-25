@@ -86,6 +86,17 @@ userController.followAuction = async (req,res,next) => {
       throw new Error('No auction found')
     }
 
+    // Check for duplicates
+    const dupAuctions = await followedAuctions.findAll({
+      where : {
+        user_id: userId,
+        auction_id: Number(auctionId)
+      }
+    })
+
+    if (dupAuctions.length > 0) {
+      throw new Error('User is already following auction')
+    }
 
     const followedAuction = await followedAuctions.create({
       user_id: userId,
@@ -109,7 +120,7 @@ userController.unFollowAuction = async (req,res,next) => {
     const following = await followedAuctions.findByPk(id)
     
     if (!following) {
-      throw new Error('No auction found')
+      throw new Error('No auction being followed')
     }
 
     if (following.user_id !== userId) {
