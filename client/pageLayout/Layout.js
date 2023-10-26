@@ -8,10 +8,10 @@ import Home from "../pages/Home"
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import AllListings from "../pages/AllListings.jsx";
-import Cart from "../pages/Checkout";
 import WatchList from "../pages/WatchList";
 import Sell from '../pages/Sell'
 import IndividualAuctionItem from "../pages/IndividualAuctionItem";
+import PaymentForm from "../pages/Checkout";
 
 
 const Pages = () => {
@@ -37,7 +37,7 @@ const Pages = () => {
                     <Route path ='/signup' element={<SignUp/>}/>
                     <Route path ='/auction/:id' element={<IndividualAuctionItem/>}/>
                     <Route path ='/sell' element={<Sell/>}/>
-                    <Route path="/checkout"  element={<Cart/>}/>
+                    <Route path="/checkout"  element={<PaymentForm/>}/>
                     <Route path="/watchlist" element={<WatchList/>}/>
                     <Route />
                 </Route>

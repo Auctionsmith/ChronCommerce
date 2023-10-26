@@ -10,7 +10,7 @@ module.exports = {
         filename: 'index.bundle.js',
         publicPath: '/',
     },
-    mode : "development",
+    mode: "development",
     devServer: {
         port: 3000,
         hot: true,
@@ -20,13 +20,20 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /node.modules/,
+                exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader'
-                }
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-react',
+                            '@babel/preset-flow', // Add this line for Flowtype
+                        ],
+                    },
+                },
             },
             {
-                test: /\.(scss)$/,
+                test: /\.scss$/, // Use \. instead of . to match a literal dot
                 use: [
                     'style-loader',
                     'css-loader',
@@ -34,9 +41,8 @@ module.exports = {
                 ]
             },
             {
-                test : /\.(png|svg|jpg|jpeg|gif)$/i,
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: "asset/resource"
-
             }
         ]
     },
@@ -55,7 +61,7 @@ module.exports = {
             '/': 'http://localhost:3000',
         },
         hot: true,
-        open : true,
+        open: true,
         historyApiFallback: true
     },
     devtool: 'source-map'
