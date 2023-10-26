@@ -75,11 +75,15 @@ console.log(req)
       'current_price',
       'seller_id',
       'item_name',
-      'img_url',
       'category',
       'description']
     try {
-      if (!requiredInputs.every((input)=>{Object.keys(req.body).includes(input)}
+      if (!requiredInputs.every((input)=>{
+        if (!Object.keys(req.body).includes(input)) {
+          console.log(input)
+        }
+        return Object.keys(req.body).includes(input)
+      }
       )) {
         throw new Error('Auction cannot be created without valid inputs')
       }

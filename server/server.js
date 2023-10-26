@@ -21,7 +21,6 @@ app.use(express.urlencoded({extended: true}))
 
 const RedisStore = require('connect-redis').default;
 const { createClient } = require('redis');
-
 const client = createClient({
   password: 'PIvyCh6v09PexC8KI06UoHsC2emwsEW0',
   socket: {
@@ -29,12 +28,8 @@ const client = createClient({
       port: 14153
   }
 })
-
 client.connect()
-
-const store = new RedisStore({ client: client, prefix: "myapp:", ttl: 60});
-
-
+const store = new RedisStore({ client: client, prefix: "myapp:"});
 app.use(session({
     secret: 'your_secret_key',
     resave: false,
