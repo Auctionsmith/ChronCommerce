@@ -19,7 +19,7 @@ const ItemOfTheDay = () => {
     // please note: seller_id needs to be updated to id from DB
     useEffect(()=>{
         axios.get('/auction/random')
-            .then((data)=> setitemOfTheDay(()=>data.data))
+            .then((res)=> setitemOfTheDay(()=>res.data))
             .catch((err)=> console.log(err))
     },[])
 
@@ -33,7 +33,7 @@ const ItemOfTheDay = () => {
             <p>Name: {itemOfTheDay.item_name}</p>
             <p>Ends In: {itemOfTheDay.end_time}</p>
             <p>Current Bid: <b>{itemOfTheDay.current_price}</b></p>
-            <IADetailsLink to={`/${itemOfTheDay.seller_id}`}>Get More Details</IADetailsLink>
+            <IADetailsLink to={`/${itemOfTheDay.id}`}>Get More Details</IADetailsLink>
         </DescriptionContainer>
         </DayWrapper>
   )

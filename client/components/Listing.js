@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 
 
 const Listing = ( { name, img, price, endTime, id } ) => {
+  
 
   return (
     <ItemContainer >

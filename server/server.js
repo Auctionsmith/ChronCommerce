@@ -28,7 +28,7 @@ app.use(cookieParser())
 //       port: 14153
 //   }
 // })
-client.connect().then(()=>console.log('Successfully connected to Redis')).catch((err)=>console.log(err))
+// client.connect().then(()=>console.log('Successfully connected to Redis')).catch((err)=>console.log(err))
 // const store = new RedisStore({ client: client, prefix: "myapp:", ttl: 3600});
 // app.use(session({
 //     secret: 'your_secret_key',
@@ -45,13 +45,13 @@ client.connect().then(()=>console.log('Successfully connected to Redis')).catch(
 
 
 // session configuration
-// app.use(
-//   session({
-//     secret: 'hello',
-//     resave: false,
-//     saveUninitialized: true,
-//   }),
-// );
+app.use(
+  session({
+    secret: 'hello',
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
 
 // initilize use of passport and sessions
 app.use(passport.initialize());

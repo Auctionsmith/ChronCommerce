@@ -4,12 +4,15 @@ import SignUp from "../pages/SignUp";
 import axios from 'axios'
 import { getUserInfo } from '../slices/userSlice'
 import { useDispatch } from 'react-redux'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import styled from 'styled-components'
 
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [errorMessage, setErrorMessage] = useState({
+    err: ''
+  });
   const usernameRef = useRef(null)
   const passwordRef = useRef(null)
 
@@ -20,11 +23,18 @@ const Login = () => {
 
 
   axios.post('auth/login', {username: username, password: password})
+  
     .then((payload)=> {  
     
       dispatch(getUserInfo(payload.data))
       navigate('/')
       axios.get('auth/user').then((data)=>console.log(data))
+    })
+    .catch((err)=> {
+      console.log(err)
+      setErrorMessage({
+        err: err.response.data
+      })
     })
   }
 
@@ -47,6 +57,7 @@ const Login = () => {
           />
      
         <button type="submit">Login</button>
+        {errorMessage&&<InvalidLogin>{errorMessage.err}</InvalidLogin>}
       </DetailsForm>
     <footer className="signup-link">
       Don't have an account? <Link to="/signup">Sign Up</Link>
@@ -80,6 +91,11 @@ justify-content: center;
 gap: 1em;
 width: 100vh;
 height: 100vh;
+`
+
+const InvalidLogin = styled.p`
+color: darkred;
+text-align: center;
 `
  
 export default Login;
