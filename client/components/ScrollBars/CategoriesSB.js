@@ -5,7 +5,7 @@ const CategoriesSB = ({ selectRef, form }) => {
   return (
     <CategoriesContainer id="categories">
         <select id="Search-categories" ref={selectRef}>
-          {!form&&<option value="allcategories">All Categories</option>}
+          {!form&&<option value="all categories">All Categories</option>}
           <option value="motors">Motors</option>
           <option value="clothing & accessories">Clothing & Accessories</option>
           <option value="sporting goods">Sporting Goods</option>

@@ -16,7 +16,10 @@ const WatchList = () => {
 
   useEffect(()=>{
     axios.get('/user/openBids')
-      .then((data) => console.log(data))
+      .then((payload) => {
+        console.log(payload.data)
+        dispatch(getAllOpenBids(payload.data))
+      })
       .catch((err)=> console.log(err))
   }, [])
 
@@ -24,7 +27,10 @@ const WatchList = () => {
   // dispatch(getFollowedItems(res.data))
   useEffect(()=>{
     axios.get('/user/followedAuctions')
-      .then((data) => console.log(data))
+      .then((payload) =>{
+        console.log(payload)
+        dispatch(getFollowedItems(payload.data))
+      })
       .catch((err)=> console.log(err))
   }, [])
 
@@ -43,7 +49,7 @@ const WatchList = () => {
        />;
     })}</OpenBidsContainer>
     <FollowAuctionsContainer>
-    {openBids.map((listing) => {
+    {followedItems.map((listing) => {
       return <Listing 
       name={listing.item_name} 
       price={listing.current_price}

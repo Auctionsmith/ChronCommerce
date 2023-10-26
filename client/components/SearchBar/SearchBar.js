@@ -28,14 +28,14 @@ const SearchBar = () => {
 
     console.log('category', selectRef.current.value)
     console.log('item', searchRef.current.value)
-    const { data } = await axios.get('/auction',
+    const {data} = await axios.get('/auction',
       {params: {
         search: searchVal,
         category: categoryVal,
       }},
     );
   
-    console.log(data)
+    
     dispatch(setSearchResultItems(data))
 
   }

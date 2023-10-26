@@ -45,14 +45,13 @@ client.connect().then(()=>console.log('Successfully connected to Redis')).catch(
 
 
 // session configuration
-app.use(
-  session({
-    // env variable for secret
-    secret: 'hello',
-    resave: false,
-    saveUninitialized: true,
-  }),
-);
+// app.use(
+//   session({
+//     secret: 'hello',
+//     resave: false,
+//     saveUninitialized: true,
+//   }),
+// );
 
 // initilize use of passport and sessions
 app.use(passport.initialize());
