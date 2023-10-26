@@ -14,6 +14,7 @@ const SellForm = () => {
     const startTimeRef = useRef(null)
     const endTimeRef = useRef(null)
     
+    const newError = true;
     // currently built without dispatch since
     const postListing = (event) => {
         // we don't want the page to refresh on submisssion
@@ -97,6 +98,7 @@ const SellForm = () => {
         <CategoriesSB selectRef={selectRef} form={true}/>
   
         <button type="submit">Submit</button>
+        {newError&&<p>Invalid Inputs, please check type</p>}
     </SellFormWrapper>
   </SellFormContainer>
   )
