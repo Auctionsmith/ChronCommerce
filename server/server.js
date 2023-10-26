@@ -12,6 +12,7 @@ const authRouter = require("./routes/authRouter");
 const listingRouter = require('./routes/listingRouter');
 const imageRouter = require('./routes/imageRouter');
 const cartRouter = require('./routes/cartRouter');
+const paymentRouter = require('./routes/paymentRouter');
 
 app.use('/', express.static(path.join(__dirname, '../dist')));
 
@@ -19,6 +20,7 @@ app.use("/listing", listingRouter);
 app.use("/image", imageRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
+app.use("/payments", paymentRouter);
 
 app.get("*", (req, res) => {
   console.log("no build");
