@@ -28,7 +28,7 @@ app.use(cookieParser())
 //       port: 14153
 //   }
 // })
-// client.connect()
+client.connect().then(()=>console.log('Successfully connected to Redis')).catch((err)=>console.log(err))
 // const store = new RedisStore({ client: client, prefix: "myapp:", ttl: 3600});
 // app.use(session({
 //     secret: 'your_secret_key',
