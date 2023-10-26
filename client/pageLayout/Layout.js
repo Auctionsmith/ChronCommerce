@@ -15,7 +15,6 @@ import IndividualAuctionItem from "../pages/IndividualAuctionItem";
 
 
 const Pages = () => {
-    // let { id } = useParams()
 
     const Page = () => {
         return (

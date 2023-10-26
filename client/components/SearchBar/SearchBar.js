@@ -12,60 +12,63 @@ const SearchBar = () => {
   const selectRef = useRef(null);
   const searchRef = useRef(null);
 
-  const printSelectCat = (event) => {
-    event.preventDefault();    
+  // test refs fucn
+  // const printSelectCat = (event) => {
+  //   event.preventDefault();    
 
-   
-    console.log(searchRef.current.value)
-  }
+  //  console.log('searchRef Test', searchRef.current.value)
+  // console.log("selectRef Test", selectRef.current.value)
+  // }
 
+  // update search into onclick once testing 
   const search = async (event) => {
     event.preventDefault();
-    // console.log('category', selectRef.current.value)
-    // console.log('item', searchRef.current.value)
-    const { data } = await axios.get('/searchAuctionItems',
+    let searchVal = searchRef.current.value;
+    let categoryVal = selectRef.current.value;
+
+    console.log('category', selectRef.current.value)
+    console.log('item', searchRef.current.value)
+    const { data } = await axios.get('/auction',
       {params: {
-        search: searchRef,
-        category: selectRef,
+        search: searchVal,
+        category: categoryVal,
       }},
-      { withCredentials: true },
     );
+  
     console.log(data)
     dispatch(setSearchResultItems(data))
 
   }
 
+
   return (
-    <SeachWrapper>
-      <SeachFormWrapper onSubmit={printSelectCat} >
-      <input type="text" placeholder="Search..." ref={searchRef}/>
-      <CategoriesSB selectRef={selectRef}/>
-        {/* <select id="Search-categories" ref={selectRef}>
-          <option value="allcategories">All Categories</option>
-          <option value="motors">Motors</option>
-          <option value="clothing&accessories">Clothing & Accessories</option>
-          <option value="sportinggoods">Sporting Goods</option>
-          <option value="electronics">Electronics</option>
-          <option value="business&industrial">Business & Industrial</option>
-          <option value="jewlery&watches">Jewlery & Watches</option>
-          <option value="collectibles&art">Collectibles & Art</option>
-          <option value="home&garden">Home & Garden</option>
-          <option value="othercategories">Other Categories</option>
-        </select> */}
-      <button type="submit">Search</button>
+    <>
+      <SeachFormWrapper onSubmit= {search}>
+        <SearchInput type="text" placeholder="  Search..." ref={searchRef}/>
+        <CategoriesSB selectRef={selectRef}/>
+        <SearchButton type="submit">Submit</SearchButton>
       </SeachFormWrapper>
-    </SeachWrapper>
+    </>
   )
 }
 
-const SeachWrapper = styled.div`
+
+
+const SeachFormWrapper = styled.form`
 display: flex;
 flex-direction: row;
 `
-const SeachFormWrapper = styled.div`
-display: flex;
-flex-direction: row;
-padding: 1em;
+
+const SearchInput = styled.input`
+width: 20em;
+height: 2em;
+`
+
+const SearchButton = styled.button`
+width: 10em;
+height: 3em;
+margin-left: 2em;
+margin-bottom: 2em;
 `
 
 export default SearchBar;

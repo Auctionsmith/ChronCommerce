@@ -54,6 +54,8 @@ auctionController.getAuction = async (req,res,next) => {
 
 
 auctionController.createAuction = async (req,res,next) => {
+console.log(req)
+
   // Finish createMethod
   console.log(req.body);
 
@@ -73,11 +75,12 @@ auctionController.createAuction = async (req,res,next) => {
       'current_price',
       'seller_id',
       'item_name',
-      //'img_url',
+      'img_url',
       'category',
       'description']
     try {
-      if (!requiredInputs.every((input)=>Object.keys(req.body).includes(input))) {
+      if (!requiredInputs.every((input)=>{Object.keys(req.body).includes(input)}
+      )) {
         throw new Error('Auction cannot be created without valid inputs')
       }
       

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { css, keyframes } from "styled-components";
 import { NavLink, Navlist } from "react-router-dom";
 import { useSelector } from "react-redux"
 import LoggedInLinks from "../components/loggedInLinks";
@@ -42,7 +43,7 @@ display: flex;
 flex-direction: row;
 justify-content: space-evenly;
 background-color: var(--secondary-color);
-padding:1em;
+padding: 1em;
 `
 
 const Image = styled.img`
@@ -57,14 +58,14 @@ list-style: none;
 align-self: center;
 gap: 25px;
 `
-const BellNavLink = styled(NavLink)`
-padding: 10px;
-background-color: white;
-`
 
-const StyledNavLink = styled(NavLink)`
-color : #053B50;
-padding: 10px;
+const fade = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 `
 
 const HeaderContainer = styled.div`
@@ -72,7 +73,7 @@ display: flex;
 flex-direction: row;
 gap: 30px;
 h1{
-    margin-right: 6em;
+    animation: ${fade} 1s ease-in;
 }
 `
 

@@ -66,14 +66,13 @@ const protectedRoute = require('./middleware/protectedRoute')
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 app.use("/auction", auctionRouter)
-app.use("/user", protectedRoute, userRouter)
+app.use("/user", userRouter)
 app.use("/listing", listingRouter);
 //app.use("/image", imageRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
 
 app.get("*", (req, res) => {
-  console.log("no build");
   console.log(req.path)
   res
     .status(200)

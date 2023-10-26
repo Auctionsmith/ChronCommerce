@@ -247,7 +247,9 @@ userController.getOpenBids = async (req,res,next) => {
     if (!req.user) {
       throw new Error('No user found')
     }
-    const {id} = req.user
+    // const {id} = req.user
+    // hardcoded value for testing
+    const id = 1
     const openAuctions = await Auction.findAll({
       where: {
         buyer_id : id,

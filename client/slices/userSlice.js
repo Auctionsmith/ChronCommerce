@@ -13,73 +13,8 @@ const initialState = {
     password: 'password'
   },
   LoggedIn: true,
-  openBids: [  {
-    start_time: new Date(),
-    end_time: "10/21/2023 8:00 pm",
-    status: 'open',
-    current_price: 100,
-    seller_id: 1,
-    item_name: 'Dummy Item 1',
-    img_url: 'https://freepngimg.com/thumb/kobe_bryant/98558-player-basketball-bryant-kobe-hd-image-free.png',
-    category: 'electronics',
-    description: 'A dummy auction item 1.',
-  },
-  {
-    start_time: new Date(),
-    end_time: "10/21/2023 8:00 pm",
-    status: 'open',
-    current_price: 150,
-    seller_id: 2, 
-    item_name: 'Dummy Item 2',
-    img_url: 'https://freepngimg.com/thumb/kobe_bryant/98558-player-basketball-bryant-kobe-hd-image-free.png',
-    category: 'clothing & accessories',
-    description: 'A dummy auction item 2.',
-  },
-  {
-    start_time: new Date(),
-    end_time: "10/21/2023 8:00 pm",
-    status: 'open',
-    current_price: 200,
-    seller_id: 3, 
-    item_name: 'Dummy Item 3',
-    img_url: 'https://freepngimg.com/thumb/kobe_bryant/98558-player-basketball-bryant-kobe-hd-image-free.png',
-    category: 'sporting goods',
-    description: 'A dummy auction item 3.',
-  },
-  {
-    start_time: new Date(),
-    end_time: "10/21/2023 8:00 pm",
-    status: 'open',
-    current_price: 150,
-    seller_id: 2, 
-    item_name: 'Dummy Item 4',
-    img_url: 'https://freepngimg.com/thumb/kobe_bryant/98558-player-basketball-bryant-kobe-hd-image-free.png',
-    category: 'clothing & accessories',
-    description: 'A dummy auction item 2.',
-  },
-  {
-    start_time: new Date(),
-    end_time: "10/21/2023 8:00 pm",
-    status: 'open',
-    current_price: 150,
-    seller_id: 2, 
-    item_name: 'Dummy Item 5',
-    img_url: 'https://freepngimg.com/thumb/kobe_bryant/98558-player-basketball-bryant-kobe-hd-image-free.png',
-    category: 'clothing & accessories',
-    description: 'A dummy auction item 2.',
-  },
-  {
-    start_time: new Date(),
-    end_time: "10/21/2023 8:00 pm",
-    status: 'open',
-    current_price: 150,
-    seller_id: 2, 
-    item_name: 'Dummy Item 6',
-    img_url: 'https://freepngimg.com/thumb/kobe_bryant/98558-player-basketball-bryant-kobe-hd-image-free.png',
-    category: 'clothing & accessories',
-    description: 'A dummy auction item 2.',
-  },
-],
+  openBids: [],
+  followedItems: [],
   wonItems: [],
   purchaseHistory: [],
   itemsForSale: [],
@@ -98,8 +33,11 @@ export const userSlice = createSlice({
     logout: (state, action) => {
       state.LoggedIn = false;
     },
-    addBid: (state, action) => {
-      state.openBids = state.openBids.push(action.payload);
+    getAllOpenBids: (state, action) => {
+      state.openBids = action.payload;
+    },
+    getFollowedItems: (state, action) => {
+      state.followedItems = action.payload;
     },
     addWonItem: (state, action) => {
       state.wonItems = state.wonItems.push(action.payload);
@@ -113,6 +51,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { getUserInfo, login, logout, addBid, addWonItem, addPurchaseHistory, sellItem } =
+export const { getUserInfo, login, logout, getAllOpenBids, addWonItem, addPurchaseHistory, sellItem, getFollowedItems } =
   userSlice.actions;
 export default userSlice.reducer;

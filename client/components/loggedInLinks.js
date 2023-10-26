@@ -16,20 +16,44 @@ const LoggedInLinks = () => {
         <StyledLoggedInLink to={"/"}>Home</StyledLoggedInLink>
         <StyledLoggedInLink to={"/sell"}>Sell</StyledLoggedInLink>
         <StyledLoggedInLink to={"/watchlist"}>Watchlist</StyledLoggedInLink>
-        <StyledLoggedInLink to={"/checkout"}>
+        <CheckoutBadgeLink to={"/checkout"}>
             <FaRegBell/>
-        </StyledLoggedInLink>
-        <button onClick={handleLogout}>Logout</button>
+        </CheckoutBadgeLink>
+        <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
     </LoggedInLinksWrapper>
   )
 }
 
 const StyledLoggedInLink = styled(NavLink)`
-background-color: var(--nav-button-color);
 color: black;
-border-radius:.5em;
 padding: 10px;
 text-decoration: none;
+font-size: 1.25em;
+&:hover {
+  text-decoration: underline;
+}
+`
+
+const CheckoutBadgeLink = styled(NavLink)`
+color: black;
+padding: 10px;
+text-decoration: none;
+font-size: 1.25em;
+&:hover {
+  text-decoration: underline;
+}
+`
+
+const LogoutButton = styled.button`
+color: black;
+padding: 10px;
+background-color: transparent;
+border: none;
+text-decoration: none;
+font-size: 1.25em;
+&:hover {
+  text-decoration: underline;
+}
 `
 
 const LoggedInLinksWrapper = styled.div`
