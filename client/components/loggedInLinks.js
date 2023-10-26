@@ -16,15 +16,25 @@ const LoggedInLinks = () => {
         <StyledLoggedInLink to={"/"}>Home</StyledLoggedInLink>
         <StyledLoggedInLink to={"/sell"}>Sell</StyledLoggedInLink>
         <StyledLoggedInLink to={"/watchlist"}>Watchlist</StyledLoggedInLink>
-        <StyledLoggedInLink to={"/checkout"}>
+        <CheckoutBadgeLink to={"/checkout"}>
             <FaRegBell/>
-        </StyledLoggedInLink>
+        </CheckoutBadgeLink>
         <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
     </LoggedInLinksWrapper>
   )
 }
 
 const StyledLoggedInLink = styled(NavLink)`
+color: black;
+padding: 10px;
+text-decoration: none;
+font-size: 1.25em;
+&:hover {
+  text-decoration: underline;
+}
+`
+
+const CheckoutBadgeLink = styled(NavLink)`
 color: black;
 padding: 10px;
 text-decoration: none;

@@ -53,6 +53,8 @@ auctionController.getAuction = async (req,res,next) => {
 
 
 auctionController.createAuction = async (req,res,next) => {
+console.log(req)
+
   // Finish createMethod
   const {start_time,
     end_time,
@@ -70,7 +72,7 @@ auctionController.createAuction = async (req,res,next) => {
       'current_price',
       'seller_id',
       'item_name',
-      'img_url',
+      // 'img_url',
       'category',
       'description']
     try {

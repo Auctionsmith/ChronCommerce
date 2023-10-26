@@ -13,35 +13,37 @@ const SearchBar = () => {
   const searchRef = useRef(null);
 
   // test refs fucn
-  const printSelectCat = (event) => {
-    event.preventDefault();    
+  // const printSelectCat = (event) => {
+  //   event.preventDefault();    
 
-   console.log('searchRef Test', searchRef.current.value)
-  console.log("selectRef Test", selectRef.current.value)
-  }
+  //  console.log('searchRef Test', searchRef.current.value)
+  // console.log("selectRef Test", selectRef.current.value)
+  // }
 
   // update search into onclick once testing 
-  // const search = async (event) => {
-  //   event.preventDefault();
-  //   let search = searchRef.current.value;
-  //   let category = selectRef.current.value;
-  //   console.log('category', selectRef.current.value)
-  //   console.log('item', searchRef.current.value)
-  //   const { data } = await axios.get('/searchAuctionItems',
-  //     {params: {
-  //       search: searchRef,
-  //       category: selectRef,
-  //     }},
-  //   );
-  //   console.log(data)
-  //   dispatch(setSearchResultItems(data))
+  const search = async (event) => {
+    event.preventDefault();
+    let searchVal = searchRef.current.value;
+    let categoryVal = selectRef.current.value;
 
-  // }
+    console.log('category', selectRef.current.value)
+    console.log('item', searchRef.current.value)
+    const { data } = await axios.get('/auction',
+      {params: {
+        search: searchVal,
+        category: categoryVal,
+      }},
+    );
+  
+    console.log(data)
+    dispatch(setSearchResultItems(data))
+
+  }
 
 
   return (
     <>
-      <SeachFormWrapper onSubmit= {printSelectCat}>
+      <SeachFormWrapper onSubmit= {search}>
         <SearchInput type="text" placeholder="  Search..." ref={searchRef}/>
         <CategoriesSB selectRef={selectRef}/>
         <SearchButton type="submit">Submit</SearchButton>
