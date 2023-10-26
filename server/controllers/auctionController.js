@@ -56,9 +56,6 @@ auctionController.getAuction = async (req,res,next) => {
 auctionController.createAuction = async (req,res,next) => {
 console.log(req)
 
-  // Finish createMethod
-  console.log(req.body);
-
   const {start_time,
     end_time,
     status,

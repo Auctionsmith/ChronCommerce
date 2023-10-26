@@ -6,7 +6,7 @@ const cors = require("cors");
 const passport = require('passport');
 const session = require('express-session');
 const morgan = require('morgan');
-
+const cookieParser = require('cookie-parser')
 
 const PORT = 3000;
 const app = express();
@@ -16,7 +16,7 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
-
+app.use(cookieParser())
 
 
 const RedisStore = require('connect-redis').default;
@@ -29,12 +29,18 @@ const client = createClient({
   }
 })
 client.connect()
-const store = new RedisStore({ client: client, prefix: "myapp:"});
+const store = new RedisStore({ client: client, prefix: "myapp:", ttl: 3600});
 app.use(session({
     secret: 'your_secret_key',
     resave: false,
     saveUninitialized: true,
-    store: store
+    store: store,
+    cookie: {
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
+      maxAge: 1000 * 60 * 60, // 1 day in milliseconds
+      sameSite: 'lax'
+  },
 }));
 
 

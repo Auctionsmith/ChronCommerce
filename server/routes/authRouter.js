@@ -24,7 +24,7 @@ router.post("/register", authController.createUser, (req, res) => {
   return res.status(200).send('Account creation success');
 });
 
-router.get("/logout", authController.logout, (req, res) => {
+router.post("/logout", authController.logout, (req, res) => {
   return res.sendStatus(200);
 });
 

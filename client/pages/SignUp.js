@@ -12,7 +12,7 @@ const SignUp = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
-  const [username, setUsername] = useState('')
+  // const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   // const [city, setCity] = useState('')
   // const [zip, setZip] = useState('')
@@ -46,14 +46,14 @@ const SignUp = () => {
             value={lastName}
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label>Username:</label>
           <input
             type="text"
             onChange={(e) => setUsername(e.target.value)}
             value={username}
           />
-        </div>
+        </div> */}
         <div className="form-group">
           <label>Email:</label>
           <input
