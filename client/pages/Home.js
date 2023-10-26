@@ -23,15 +23,10 @@ useEffect(()=>{
     .catch(err => console.log(err))
 })
 
-const testClick = () => {
-    axios.get('auth/user').then((data)=>console.log(data))
-}
-
     return (
         <HomeWrapper>        
         <Search>
         <SearchBar/>
-        <button onClick={testClick}>Get User</button>
         </Search>
    
         <ItemOfTheDay/>

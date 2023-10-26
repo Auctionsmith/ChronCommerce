@@ -26,10 +26,6 @@ const Login = () => {
       navigate('/')
       axios.get('auth/user').then((data)=>console.log(data))
     })
-
-    
-
-
   }
 
   return ( 

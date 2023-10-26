@@ -19,40 +19,40 @@ app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
 
 
-const RedisStore = require('connect-redis').default;
-const { createClient } = require('redis');
-const client = createClient({
-  password: 'PIvyCh6v09PexC8KI06UoHsC2emwsEW0',
-  socket: {
-      host: 'redis-14153.c60.us-west-1-2.ec2.cloud.redislabs.com',
-      port: 14153
-  }
-})
-client.connect()
-const store = new RedisStore({ client: client, prefix: "myapp:", ttl: 3600});
-app.use(session({
-    secret: 'your_secret_key',
-    resave: false,
-    saveUninitialized: true,
-    store: store,
-    cookie: {
-      httpOnly: true, 
-      secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
-      maxAge: 1000 * 60 * 60, // 1 day in milliseconds
-      sameSite: 'lax'
-  },
-}));
+// const RedisStore = require('connect-redis').default;
+// const { createClient } = require('redis');
+// const client = createClient({
+//   password: 'PIvyCh6v09PexC8KI06UoHsC2emwsEW0',
+//   socket: {
+//       host: 'redis-14153.c60.us-west-1-2.ec2.cloud.redislabs.com',
+//       port: 14153
+//   }
+// })
+// client.connect()
+// const store = new RedisStore({ client: client, prefix: "myapp:", ttl: 3600});
+// app.use(session({
+//     secret: 'your_secret_key',
+//     resave: false,
+//     saveUninitialized: true,
+//     store: store,
+//     cookie: {
+//       httpOnly: true, 
+//       secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
+//       maxAge: 1000 * 60 * 60, // 1 day in milliseconds
+//       sameSite: 'lax'
+//   },
+// }));
 
 
 // session configuration
-// app.use(
-//   session({
-//     // env variable for secret
-//     secret: 'hello',
-//     resave: false,
-//     saveUninitialized: true,
-//   }),
-// );
+app.use(
+  session({
+    // env variable for secret
+    secret: 'hello',
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
 
 // initilize use of passport and sessions
 app.use(passport.initialize());
