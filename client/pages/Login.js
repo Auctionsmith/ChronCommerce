@@ -9,7 +9,7 @@ import styled from 'styled-components'
 
 const Login = () => {
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   const usernameRef = useRef(null)
   const passwordRef = useRef(null)
 
@@ -20,8 +20,12 @@ const Login = () => {
 
 
   axios.post('auth/login', {username: username, password: password})
-    .then(data=> console.log(data))
-    .then((data)=> dispatch(getUserInfo(data)))
+    .then((payload)=> {  
+    
+      dispatch(getUserInfo(payload.data))
+      navigate('/')
+      axios.get('auth/user').then((data)=>console.log(data))
+    })
 
     
 

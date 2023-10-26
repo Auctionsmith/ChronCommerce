@@ -2,13 +2,31 @@ import React from 'react'
 import styled from 'styled-components'
 import { NavLink, Navlist } from "react-router-dom";
 import { FaRegBell } from "react-icons/fa6"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../slices/userSlice'
+import axios from 'axios'
 
 const LoggedInLinks = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    // const {LoggedIn} = useSelector(state=>state.userInfo) 
+    const {LoggedIn} = useSelector(state=>state.user)
+    //  If not logged in
+
     const handleLogout = () => {
-        dispatch(logout())
+      if (!LoggedIn) {
+        navigate("/")
+      }
+      else {
+        axios.post("/auth/logout")
+        .then(()=>{
+          dispatch(logout())
+          navigate("/")
+        }).catch((error)=>{
+          navigate('/')
+        })
+      }        
     }
 
   return (

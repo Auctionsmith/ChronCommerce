@@ -12,7 +12,7 @@ const initialState = {
     phone: 123456789,
     password: 'password'
   },
-  LoggedIn: true,
+  LoggedIn: false,
   openBids: [],
   followedItems: [],
   wonItems: [],
@@ -26,6 +26,7 @@ export const userSlice = createSlice({
   reducers: {
     getUserInfo: (state, action) => {
       state.userInfo = action.payload;
+      state.LoggedIn = true;
     },
     login: (state, action) => {
       state.LoggedIn = true;

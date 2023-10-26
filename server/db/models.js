@@ -4,7 +4,7 @@ const { Pool } = require('pg');
 
 const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcryptjs')
-const auctionEvent = require('../middleware/auctionEvent')
+// const auctionEvent = require('../middleware/auctionEvent')
 
 // store in .env
 const url = 'postgres://ywbqzgag:XZi_XWfr8nzIqAx6wE9_pCSkCF-bzvFM@mahmud.db.elephantsql.com/ywbqzgag'
@@ -21,22 +21,6 @@ const User = sequelize.define('User', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-  },
-  address: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  city: {
-    type: DataTypes.STRING,
-    allowNull: false, 
-  },
-  state: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  zip: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
   },
   first_name: {
     type: DataTypes.STRING,
@@ -55,10 +39,6 @@ const User = sequelize.define('User', {
     get: function () {
       return this.email;
     }
-  },
-  phone: {
-    type: DataTypes.STRING,
-    allowNull: false,
   },
   password: {
     type: DataTypes.STRING,
@@ -228,13 +208,13 @@ const createDummyUsers = async (dummyUsers) => {
 const dummyAuction = [
   {
     start_time: new Date(new Date().getTime() + (5)*60*1000),
-    end_time: new Date(new Date().getTime() + (7)*60*1000),
-    status: 'closed',
-    current_price: 100,
+    end_time: new Date(new Date().getTime() + (60)*60*1000*24),
+    status: 'open',
+    current_price: 300,
     seller_id: 1, // Set to an existing seller's ID
-    item_name: 'Dummy Item 1',
-    img_url: 'item1.jpg',
-    category: 'electronics',
+    item_name: 'Rare Baseball Card',
+    img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/baseballCard1.png',
+    category: 'collections & art',
     description: 'A dummy auction item 1.',
   },
   {
@@ -243,9 +223,9 @@ const dummyAuction = [
     status: 'closed',
     current_price: 150,
     seller_id: 2, // Set to an existing seller's ID
-    item_name: 'Dummy Item 2',
-    img_url: 'item2.jpg',
-    category: 'clothing & accessories',
+    item_name: 'Very special stamp',
+    img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/stamp1.png',
+    category: 'collections & art',
     description: 'A dummy auction item 2.',
   },
   {
@@ -254,9 +234,9 @@ const dummyAuction = [
     status: 'closed',
     current_price: 200,
     seller_id: 3, // Set to an existing seller's ID
-    item_name: 'Dummy Item 3',
-    img_url: 'item3.jpg',
-    category: 'sporting goods',
+    item_name: 'Antique Electronics',
+    img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/vintageElectronics1.png',
+    category: 'electronics',
     description: 'A dummy auction item 3.',
   },
 ]
@@ -315,11 +295,11 @@ const createFollow = async (dummyFollow) => {
 // sequelize.sync({force: true})
 //   .then(() => console.log('All models synchronized'));
 
-// const buildDummyDB = async() => {
-//   await createDummyUsers(dummyUsers);
-//   await createAuction(dummyAuction);
-//   await createFollow(dummyFollow);
-// }
+const buildDummyDB = async() => {
+  await createDummyUsers(dummyUsers);
+  await createAuction(dummyAuction);
+  await createFollow(dummyFollow);
+}
 // uncomment to add dummy data
 // buildDummyDB();
 
