@@ -53,7 +53,7 @@ export const auctionItemsSlice = createSlice({
         state.openItems = state.openItems.push(action.payload);
     },
     setSearchResultItems: (state, action) => {
-        state.searchResultItems = state.searchResultItems.push(action.payload);
+        state.searchResultItems = action.payload
     },
   },
 });

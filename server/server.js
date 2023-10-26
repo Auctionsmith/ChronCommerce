@@ -47,7 +47,6 @@ app.use(session({
 // session configuration
 // app.use(
 //   session({
-//     // env variable for secret
 //     secret: 'hello',
 //     resave: false,
 //     saveUninitialized: true,

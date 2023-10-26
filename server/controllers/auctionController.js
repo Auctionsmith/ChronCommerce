@@ -15,7 +15,7 @@ auctionController.getAllAuctions = async (req,res,next) => {
       [Op.iLike]: searchString
     }
   }
-  if (category !== undefined) {
+  if (category !== 'all categories' && category !== undefined) {
     whereObj.category = category;
   }
 
