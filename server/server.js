@@ -62,6 +62,7 @@ const cartRouter = require('./routes/cartRouter');
 const auctionRouter = require('./routes/auctionRouter');
 const userRouter = require('./routes/userRouter');
 const protectedRoute = require('./middleware/protectedRoute')
+const paymentRouter = require('./routes/paymentRouter');
 
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
@@ -71,6 +72,7 @@ app.use("/listing", listingRouter);
 //app.use("/image", imageRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
+app.use("/payments", paymentRouter);
 
 app.get("*", (req, res) => {
   console.log(req.path)
