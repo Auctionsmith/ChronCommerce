@@ -249,10 +249,9 @@ userController.getOpenBids = async (req,res,next) => {
     }
     // const {id} = req.user
     // hardcoded value for testing
-    const id = 1
     const openAuctions = await Auction.findAll({
       where: {
-        buyer_id : id,
+        buyer_id : req.user.id,
         status: 'open'
       }
     }) 

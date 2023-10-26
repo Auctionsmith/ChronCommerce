@@ -31,6 +31,7 @@ router.post('/bid/:auctionId', userController.placeBid, (req,res)=>{
 })
 
 router.get('/openBids', userController.getOpenBids, (req,res)=> {
+  console.log(req.user)
   return res.status(200).json(res.locals.auctions)
 })
 
