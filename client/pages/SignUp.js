@@ -24,7 +24,7 @@ const SignUp = () => {
   const handleSubmit = async(e) =>{
     e.preventDefault()
   }
-  console.log('test')
+  
   return (
     <section className="signup-container">
     <article className="signup-box">
