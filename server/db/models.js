@@ -307,6 +307,6 @@ const buildDummyDB = async() => {
 }
 // uncomment to add dummy data
 // buildDummyDB();
-console.log(sequelize.connectionManager.pool);  // Total connections
+
 
 module.exports = { User, Auction, followedAuctions };
