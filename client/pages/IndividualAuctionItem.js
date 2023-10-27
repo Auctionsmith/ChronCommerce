@@ -5,8 +5,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useEffect, useState, useRef } from 'react'
 import { getFollowedItems } from '../slices/userSlice'
+import { useNavigate } from 'react-router-dom'
 
 const IndividualAuctionItem = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { id } = useParams()
   const bidRef = useRef(null);
@@ -15,6 +17,7 @@ const IndividualAuctionItem = () => {
   const [listing, setListing] = useState(null);
   const { allItems } = useSelector((state)=> state.auctionItems)
   const { followedItems } = useSelector((state)=> state.user)
+  const userId = useSelector((state)=> state.user.userInfo.id)
   // const listing = allItems.find((item)=>item.id == id)
 
   useEffect(()=>{
@@ -68,7 +71,27 @@ const IndividualAuctionItem = () => {
   })
     .catch((err)=> console.log(err))
   }
+
+  const deleteAuction = (event) => {
+    event.preventDefault()
+    axios.delete(`/auction/${id}`)
+      .then((data) => {
+        console.log(data)
+        navigate('/')
+      })
+
+      .catch((err)=> setErrorMessage({
+        err: err.response.data
+      }))
+  }
  
+const check = (event) => {
+  event.preventDefault()
+  console.log('user ID', userId)
+  console.log('seller ID', listing.seller_id)
+}
+
+
   return (
   
     <div>
@@ -87,6 +110,7 @@ const IndividualAuctionItem = () => {
        <input type='text' ref={bidRef}/>
        {errorMessage&&<BidError>{errorMessage.err}</BidError>}
        <IABidButton onClick={makeBid}>Bid</IABidButton>
+       {userId == listing.seller_id&&<DeleteButton onClick={deleteAuction}>Delete Auction</DeleteButton>}
        </DetailsContainer>
   </ListingDetailsWrapper>
   }
@@ -104,6 +128,12 @@ img {
 `
 const FollowButton = styled.button`
 background-color: var(--nav-button-color);
+padding: 1em;
+border-radius: 1em;
+`
+
+const DeleteButton = styled.button`
+background-color: red;
 padding: 1em;
 border-radius: 1em;
 `
