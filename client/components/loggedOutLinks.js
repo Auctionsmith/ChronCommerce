@@ -17,7 +17,8 @@ padding: 10px;
 text-decoration: none;
 font-size: 1.25em;
 &:hover {
-  text-decoration: underline;
+  background-color: var(--nav-button-color);
+  border-radius: 1em;
 }
 `
 
