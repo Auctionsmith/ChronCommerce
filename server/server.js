@@ -19,10 +19,16 @@ app.use(express.urlencoded({extended: true}))
 
 
 
-const RedisStore = require('connect-redis').default;
-const { createClient } = require('redis');
+// const RedisStore = require('connect-redis').default;
+// const { createClient } = require('redis');
 
-const client = createClient({
+const connectRedis = require('connect-redis');
+// const RedisStore = connectRedis(session)
+const RedisStore = require('connect-redis').default;
+const redis = require('redis')
+
+
+const redisClient = redis.createClient({
   password: 'PIvyCh6v09PexC8KI06UoHsC2emwsEW0',
   socket: {
       host: 'redis-14153.c60.us-west-1-2.ec2.cloud.redislabs.com',
@@ -30,28 +36,44 @@ const client = createClient({
   }
 })
 
-client.connect()
+redisClient.on('error', (err) => {
+  console.log('Could not establish a connection with redis' + err)
+})
+redisClient.on('connect', (err) => {
+  console.log('Connected to redis successful')
+})
 
-const store = new RedisStore({ client: client, prefix: "myapp:", ttl: 60});
-
+redisClient.connect()
 
 app.use(session({
-    secret: 'your_secret_key',
-    resave: false,
-    saveUninitialized: true,
-    store: store
-}));
+  store: new RedisStore({ client: redisClient }),
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false, // if true only transmit cookie over https
+    httpOnly: false, // if true prevent client side JS from reading the cookie 
+    maxAge: 1000 * 60 * 10 // session max age in miliseconds
+}
+}))
 
 
-// session configuration
-// app.use(
-//   session({
-//     // env variable for secret
-//     secret: 'hello',
+
+
+// below code block was first attempt at implementing redis
+// redisClient.connect()
+
+// const store = new RedisStore({ client: redisClient, prefix: "myapp:", ttl: 60});
+
+
+// app.use(session({
+//     secret: 'your_secret_key',
 //     resave: false,
 //     saveUninitialized: true,
-//   }),
-// );
+//     store: store
+// }));
+
+
 
 // initilize use of passport and sessions
 app.use(passport.initialize());
