@@ -10,7 +10,6 @@ const ListingInfo = (props) => {
     const getImage = async () => {
         const res = await fetch(`http://localhost:3000/image/listing${props.item.img_url}`)
         const data = await res.json();
-        console.log('data', data)
         return data;
     }
 
@@ -18,7 +17,7 @@ const ListingInfo = (props) => {
 
     useEffect(() => {
         getImage();
-        console.log(listingData)
+        
     }, [])
 
 return (

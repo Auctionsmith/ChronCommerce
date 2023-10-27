@@ -1,29 +1,86 @@
+require('dotenv').config()
+
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
-const bodyParser = require('body-parser');
+const passport = require('passport');
+const session = require('express-session');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser')
+
 const PORT = 3000;
 const app = express();
-app.use(bodyParser.json());
+
+app.use(morgan('tiny'));
+
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+app.use(cookieParser())
+
+
+// const RedisStore = require('connect-redis').default;
+// const { createClient } = require('redis');
+// const client = createClient({
+//   password: 'PIvyCh6v09PexC8KI06UoHsC2emwsEW0',
+//   socket: {
+//       host: 'redis-14153.c60.us-west-1-2.ec2.cloud.redislabs.com',
+//       port: 14153
+//   }
+// })
+// client.connect().then(()=>console.log('Successfully connected to Redis')).catch((err)=>console.log(err))
+// const store = new RedisStore({ client: client, prefix: "myapp:", ttl: 3600});
+// app.use(session({
+//     secret: 'your_secret_key',
+//     resave: false,
+//     saveUninitialized: true,
+//     store: store,
+//     cookie: {
+//       httpOnly: true, 
+//       secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
+//       maxAge: 1000 * 60 * 60, // 1 day in milliseconds
+//       sameSite: 'lax'
+//   },
+// }));
+
+
+// session configuration
+app.use(
+  session({
+    secret: 'hello',
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
+
+// initilize use of passport and sessions
+app.use(passport.initialize());
+app.use(passport.session());
+
+// require and execute passport config
+require('../server/config/passport-config.js')(passport);
 
 const authRouter = require("./routes/authRouter");
 const listingRouter = require('./routes/listingRouter');
-const imageRouter = require('./routes/imageRouter');
+//const imageRouter = require('./routes/imageRouter');
 const cartRouter = require('./routes/cartRouter');
+const auctionRouter = require('./routes/auctionRouter');
+const userRouter = require('./routes/userRouter');
+const protectedRoute = require('./middleware/protectedRoute')
 const paymentRouter = require('./routes/paymentRouter');
 
-app.use('/', express.static(path.join(__dirname, '../dist')));
+app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
+app.use("/auction", auctionRouter)
+app.use("/user", userRouter)
 app.use("/listing", listingRouter);
-app.use("/image", imageRouter);
+//app.use("/image", imageRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
 app.use("/payments", paymentRouter);
 
 app.get("*", (req, res) => {
-  console.log("no build");
+  console.log(req.path)
   res
     .status(200)
     .sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
@@ -31,12 +88,12 @@ app.get("*", (req, res) => {
 
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: "Express error handler caught unknown middleware error",
+    log: `Express error handler caught ${err.origin} middleware error`,
     status: 500,
     message: { err: "An error occurred" },
   };
+  console.log(err)
   const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
 

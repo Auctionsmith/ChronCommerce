@@ -15,7 +15,6 @@ import PaymentForm from "../pages/Checkout";
 
 
 const Pages = () => {
-    // let { id } = useParams()
 
     const Page = () => {
         return (

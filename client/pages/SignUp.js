@@ -3,81 +3,89 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Switch, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Login from "../pages/Login";
+import styled from 'styled-components'
+import { useRef } from 'react'
 
 
 const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  // const [city, setCity] = useState('')
-  // const [zip, setZip] = useState('')
-  // const [state, setState] = useState('')
-  // const [phoneNumber, setPhoneNumber] = useState('')
-  // const [address, setaddress] = useState('')
-  
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null)
+  const emailRef = useRef(null)
+  const passwordRef = useRef(null)
 
-  const handleSubmit = async(e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault()
+    let firstName = firstNameRef.current.value
+    let lastName = lastNameRef.current.value
+    let email = emailRef.current.value
+    let password = passwordRef.current.value
+
+
+
+  axios.post('auth/register', {email: email, password: password, first_name: firstName, last_name: lastName})
+    .then((payload)=> {  
+    
+      dispatch(getUserInfo(payload.data))
+      navigate('/')
+      axios.get('auth/user').then((data)=>console.log(data))
+    })
   }
-  console.log('test')
+  
   return (
-    <section className="signup-container">
-    <article className="signup-box">
+    <SignUpWrapper>
+    <SignUpDetailsContainer className="signup-container">
       <h3>Signup</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
+      <SignUpDetailsForm onSubmit={handleSubmit}>
           <label>First Name:</label>
-          <input
-            type="text"
-            onChange={(e) => setFirstName(e.target.value)}
-            value={firstName}
-          />
-        </div>
-        <div className="form-group">
+          <input type="text" ref={firstNameRef}/>
+
           <label>Last Name:</label>
-          <input
-            type="text"
-            onChange={(e) => setLastName(e.target.value)}
-            value={lastName}
-          />
-        </div>
-        <div className="form-group">
-          <label>Username:</label>
-          <input
-            type="text"
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
-          />
-        </div>
-        <div className="form-group">
+          <input type="text" ref={lastNameRef}/>
+        
           <label>Email:</label>
-          <input
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-        </div>
-        <div className="form-group">
+          <input type="email" ref={emailRef}/>
+  
           <label>Password:</label>
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          />
-        </div>
+          <input type="password"ref={passwordRef}/>
+
         <button className="signup-button">Signup</button>
-      </form>
-    </article>
+      </SignUpDetailsForm>
     <footer className="login-link">
       Already have an account? <Link to="/login">Login</Link>
     </footer>
-  </section>
+  </SignUpDetailsContainer>
+  <SUBackgroundContainer></SUBackgroundContainer>
+  </SignUpWrapper>
   );
 }
+
+const SignUpWrapper = styled.div`
+display: flex;
+flex-direction: row;
+`
+const SUBackgroundContainer = styled.div`
+display: flex;
+background-color: var(--primary-color);
+width: 100vh;
+height: 100vh;
+`
+const SignUpDetailsForm = styled.form`
+display: flex;
+flex-direction: column;
+gap: 1em;
+`
+
+const SignUpDetailsContainer = styled.section`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 1em;
+width: 100vh;
+height: 100vh;
+`
  
 export default SignUp;

@@ -6,20 +6,28 @@ const LoggedOutLinks = () => {
   return (
     <LoggedOutLinksWrapper>
     <StyledLoggedOutLink to={"/login"}>Login</StyledLoggedOutLink>
-    <StyledLoggedOutLink to={"/signup"}>Signout</StyledLoggedOutLink>
+    <StyledLoggedOutLink to={"/signup"}>Sign Up</StyledLoggedOutLink>
     </LoggedOutLinksWrapper>
   )
 }
 
 const StyledLoggedOutLink = styled(NavLink)`
-display: flex;
-flex-direction: row;
+color: black;
+padding: 10px;
+text-decoration: none;
+font-size: 1.25em;
+&:hover {
+  text-decoration: underline;
+}
 `
 
 const LoggedOutLinksWrapper = styled.div`
 display: flex;
 flex-direction: row;
 gap: 20px;
+button{
+  margin-left:5em;
+}
 `
 
 export default LoggedOutLinks

@@ -2,13 +2,19 @@ import React from 'react'
 import styled from 'styled-components'
 import { useRef } from 'react'
 import axios from 'axios'
+import CategoriesSB from '../ScrollBars/CategoriesSB'
+// import CategoriesSB from '../ScrollBars/CategoriesSB'
 
 const SellForm = () => {
     const listingNameRef = useRef(null);
     const listingDescriptionRef = useRef(null)
     const startingPriceRef = useRef(null)
     const fileInputRef = useRef(null)
+    const selectRef = useRef(null)
+    const startTimeRef = useRef(null)
+    const endTimeRef = useRef(null)
     
+    const newError = true;
     // currently built without dispatch since
     const postListing = (event) => {
         // we don't want the page to refresh on submisssion
@@ -19,30 +25,52 @@ const SellForm = () => {
         const listingName = listingNameRef.current.value;
         const listingDescription = listingDescriptionRef.current.value;
         const startingPrice = startingPriceRef.current.value;
+        const category = selectRef.current.value;
+        const startTime = startTimeRef.current.value
+        const endTime = endTimeRef.current.value
+        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+        // const {start_time,
+        //     end_time,
+        //     status,
+        //     current_price,
+        //     seller_id,
+        //     item_name,
+        //     img_url,
+        //     category,
+        //     description
 
         if(file){ 
             formData.append('auctionImage', file);
         }
-        formData.append('listingName', listingName)
-        formData.append('listingDescription', listingDescription)
-        formData.append('startingPrice', startingPrice)
+        formData.append('item_name', listingName)
+        formData.append('description', listingDescription)
+        formData.append('current_price', startingPrice)
+        formData.append('category', category)
+        formData.append('seller_id', 1)
+        formData.append('start_time', startTime)
+        formData.append('end_time', endTime)
+        formData.append('time_zone', timeZone)
+        formData.append('status', 'open')
+
+       
 
         console.log(formData)
 
         // test form data pre axios
 
-        // axios({
-        //     method: 'post',
-        //     url: 'upload',
-        //     data: formData,
-        //     headers: {'Content-Type': 'multipart/form-data'}
-        // })
-        // .then(response => {
-        //     console.log(response.data)
-        // })
-        // .catch(error => {
-        //     console.log('Error uploading formData', error)
-        // })
+        axios({
+            method: 'post',
+            url: '/auction',
+            data: formData,
+            headers: {'Content-Type': 'multipart/form-data'}
+        })
+        .then(response => {
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log('Error uploading formData', error)
+        })
     }
 
 
@@ -50,18 +78,27 @@ const SellForm = () => {
     <SellFormContainer>
         <SellFormWrapper onSubmit={postListing}>
         <label>Name</label>
-            <input type="text" name="name" ref={listingNameRef}/>
+            <input type="text" name="name" placeholder="Name of Item" ref={listingNameRef}/>
     
         <label>Description</label>
-            <textarea name="description" rows="4" cols="50" ref={listingDescriptionRef}/>
+            <textarea name="description" rows="4" cols="50" placeholder="Please Enter a Brief Description" ref={listingDescriptionRef}/>
   
         <label>Starting Price </label>
-            <input type="text" name="name" ref={startingPriceRef} />
+            <input type="text" name="StartingPrice" placeholder="Minimum Starting Bid"ref={startingPriceRef} />
+
+        <label>Start Date</label>
+            <input type="datetime-local" name="startDate" ref={startTimeRef} />
+        
+        <label>End Date</label>
+            <input type="datetime-local" name="endDate" ref={endTimeRef} />
 
         <label>Image</label>
             <input type="file" name="auctionImage" ref={fileInputRef} />
+        
+        <CategoriesSB selectRef={selectRef} form={true}/>
   
         <button type="submit">Submit</button>
+        {newError&&<p>Invalid Inputs, please check type</p>}
     </SellFormWrapper>
   </SellFormContainer>
   )
