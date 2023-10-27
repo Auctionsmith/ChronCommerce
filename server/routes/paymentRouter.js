@@ -5,28 +5,29 @@ const stripe = require('stripe')('sk_test_51O4WzPIE7yM6C4rjoxERTUJxhQs0itEKmNYA4
 
 
 
-
 //router endpoints
-router.post('/intents', async (req, res) => {
+router.post('/create-payment-intent', async (req, res) => {
   try {
-
+  const { amount, currency } = req.body;
   //create payment intents
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: req.body.amount, //interger  ---> usd in pennies 
-    currency: 'usd',
-    automatic_payment_methods: {
-      enabled: true
-    }
-  })
+    amount: amount, //interger  ---> usd in pennies 
+    currency: currency,
+    // automatic_payment_methods: {
+    //   enabled: true
+    // }
+  });
   //return the secret
-  res.json({paymentIntent: paymentIntent.client_secret});
+  console.log(paymentIntent);
+  res.json({ clientSecret: paymentIntent.client_secret });
 
-  } catch (e) {
-    res.status(400).json({
-      error: e.message,
-    });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send({error: 'An error occurred while processing your payment'});
   }
 });
+
+// res.json({ clientSecret: paymentIntent.client_secret }
 
 
 // This is your test secret API key.

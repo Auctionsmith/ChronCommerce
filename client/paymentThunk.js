@@ -1,48 +1,36 @@
 // paymentThunks.js
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { stripePromise } from './stripe';
-import {
-  setClientSecret,
-  setLoading,
-  setSuccess,
-  setError,
-} from './slices/paymentSlice';
+import { createAsyncThunk } from '@reduxjs/toolkit';  
+import { loadStripe } from "@stripe/stripe-js";
+import { STRIPE_PUBLISHABLE_KEY } from "./stripe"
+import { Elements } from "@stripe/react-stripe-js";
 
 export const createPaymentIntent = createAsyncThunk(
   'payment/createPaymentIntent',
-  async (amountInPennies, { dispatch }) => {
+  async ({ amount, currency }) => {
     try {
-      const stripe = await stripePromise;
-
-      // Make an API call to your server to create a PaymentIntent
-      const response = await fetch('/intents', {
+      const response = await fetch('/create-payment-intent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ amount: amountInPennies }),
+        body: JSON.stringify({ amount, currency }),
       });
 
       if (!response.ok) {
-        const data = await response.json();
-        return Promise.reject(data);
+        const errorData = await response.json();
+        throw new Error(errorData.error);
       }
 
-      const { paymentIntent } = await response.json();
+      const data = await response.json();
 
-      // Use the Stripe instance to confirm the PaymentIntent
-      const { error } = await stripe.confirmCardPayment(paymentIntent.client_secret);
-
-      if (error) {
-        console.error("Payment request failed:", error);
-        return Promise.reject(error.message);
-      }
-
-      // Dispatch the success action to update your Redux state
-      dispatch(setSuccess(true));
-      return paymentIntent;
+      // Assuming your server returns the clientSecret in the format "id_secret_secretvalue"
+      const [id, secret] = data.clientSecret.split('_secret_');
+      
+      // Return the secret as a string
+      return secret;
     } catch (error) {
-      return Promise.reject(error.message);
+      throw error;
     }
   }
 );
+

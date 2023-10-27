@@ -13,7 +13,6 @@ const root = createRoot(rootElement);
 
 root.render(
    <Provider store={store}>
-      //AppComment
       <Elements stripe={stripePromise}>
            <App />
       </Elements>
