@@ -1,27 +1,39 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const ItemOfTheDay = () => {
-    const { allItems } = useSelector((state)=> state.auctionItems)
-    const randomItem = allItems[Math.floor(Math.random() * (allItems.length - 0) + 0)]
-
+    const [itemOfTheDay, setitemOfTheDay] = useState({});
+    // const { allItems } = useSelector((state)=> state.auctionItems)
+    // const randomItem = allItems[Math.floor(Math.random() * (allItems.length - 0) + 0)]
     // name={listing.item_name} 
     // price={listing.current_price}
     // key={listing.item_name}
     // img={listing.img_url}
     // endTime={listing.end_time}
 
+    // please note: seller_id needs to be updated to id from DB
+    useEffect(()=>{
+        axios.get('/auction/random')
+            .then((data)=> setitemOfTheDay(()=>data.data))
+            .catch((err)=> console.log(err))
+    },[])
+
+
   return (
     <DayWrapper>
         <ImageContainer>
-    <img src={randomItem.img_url}/>
+    <img src={itemOfTheDay.img_url}/>
         </ImageContainer>
         <DescriptionContainer>
-            <h2>Name: {randomItem.item_name}</h2>
-            <h4>Ends In: {randomItem.end_time}</h4>
-            <h4>Current Bid: {randomItem.current_price}</h4>
-            <IODBidButton>Bid</IODBidButton>
+            <p>Name: {itemOfTheDay.item_name}</p>
+            <p>Ends In: {itemOfTheDay.end_time}</p>
+            <p>Current Bid: <b>{itemOfTheDay.current_price}</b></p>
+            <IADetailsLink to={`/${itemOfTheDay.seller_id}`}>Get More Details</IADetailsLink>
         </DescriptionContainer>
         </DayWrapper>
   )
@@ -37,6 +49,14 @@ height: 300px;
 gap: 20px;
 `
 
+const IADetailsLink = styled(Link)`
+color: black;
+border-radius:.5em;
+padding: 10px;
+text-decoration: none;
+background-color: var(--bid-button-color);
+`
+
 const ImageContainer = styled.div`
 display: flex;
 flex-direction: column;
@@ -45,8 +65,8 @@ justify-content: center;
 color: white;
 width: 24rem;
 img{
-    height: 24rem;
-    width: 24rem;
+    height: 18rem;
+    width: 18rem;
 }
 `
 const IODBidButton = styled.button`

@@ -10,12 +10,13 @@ module.exports = function () {
       .then((foundUser) => {
         if(!foundUser) { return done(null, false, {message: 'Incorrect username or password'}) }
         // if(foundUser.password !== password) { return done(null, false, {message: 'Incorrect username or password'}) }
+
         bcrypt.compare(password, foundUser.password)
           .then((result) => {
             if(!result) { return done(null, false, {message: 'Incorrect username or password'}) }
             return done(null, foundUser)
           })
-        return done(null, foundUser);
+        // return done(null, foundUser);
       })
       .catch((err) => next(err));
   }));

@@ -8,12 +8,12 @@ const AllListings = () => {
     // currently using the sellerId as the Id for child routes
   return (
     <AllListingsContainer>
-    {allItems.map((listing) => {
+    {allItems.map((listing, index) => {
       return <Listing 
-      key={listing.seller_id}
+      key={index}
       name={listing.item_name} 
       price={listing.current_price}
-      id={listing.seller_id}
+      id={listing.id}
       img={listing.img_url}
       endTime={listing.end_time}
        />;

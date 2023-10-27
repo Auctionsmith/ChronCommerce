@@ -25,7 +25,7 @@ authController.createUser = async (req, res, next) => {
   if (!email || !password || !first_name || !last_name) return next({message: 'Missing user information'});
   
 
-  await User.create({address: address, city: city, state: state, zip: zip, first_name: first_name, last_name: last_name, email: email, phone: phone, password: password})
+  await User.create({first_name: first_name, last_name: last_name, email: email, password: password})
     .then((newUser) => {
       res.locals.user = newUser;
       return next();
@@ -41,13 +41,12 @@ authController.logout = (req, res, next) => {
     if (err) {
       return next(err);
     }
-    
+    res.clearCookie('connect.sid'); 
     return next()
   });
 };
 
 authController.getUser = (req, res, next) => {
-  console.log(req.isAuthenticated())
   if(req.isAuthenticated()) {
     res.locals.user = req.user;
     return next();

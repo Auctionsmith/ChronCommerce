@@ -1,103 +1,82 @@
 import React from "react";
 import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link, Switch, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Login from "../pages/Login";
+
 
 const SignUp = () => {
 
-  const [email, setEmail] = useState('')
+  const navigate = useNavigate();
+
   const [firstName, setFirstName] = useState('')
-  const [lastName, setlastName] = useState('')
-  const [username, setUsername] = useState('')
-  const [city, setCity] = useState('')
-  const [zip, setZip] = useState('')
-  const [state, setState] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [address, setaddress] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  // const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  // const [city, setCity] = useState('')
+  // const [zip, setZip] = useState('')
+  // const [state, setState] = useState('')
+  // const [phoneNumber, setPhoneNumber] = useState('')
+  // const [address, setaddress] = useState('')
+  
 
   const handleSubmit = async(e) =>{
     e.preventDefault()
   }
-  console.log('test')
+  
   return (
-    <div>
-      <div>
-      <h3 >Signup</h3>
+    <section className="signup-container">
+    <article className="signup-box">
+      <h3>Signup</h3>
       <form onSubmit={handleSubmit}>
-      <div className="signup">
-      <label>First Name: </label>
-        <input type="text"
-          onChange={e => setFirstName(e.target.value)}
-          value={firstName}
-        />
-      </div>
-      <div className="signup">
-      <label>Last Name: </label>
-        <input type="text"
-          onChange={e => setLastName(e.target.value)}
-          value={lastName}
-        />
-      </div>
-      <div className="signup">
-      <label>Address: </label>
-        <input type="text"
-          onChange={e => setAddress(e.target.value)}
-          value={address}
-        />
-      </div>
-      <div className="signup">
-      <label>City: </label>
-        <input type="text"
-          onChange={e => setCity(e.target.value)}
-          value={city}
-        />
-      </div>
-      <div className="signup">
-      <label>State: </label>
-        <input type="email"
-          onChange={e => setState(e.target.value)}
-          value={state}
-        />
-      </div>
-      <div className="signup">
-      <label>Zipcode: </label>
-        <input type="number"
-          onChange={e => setZip(e.target.value)}
-          value={zip}
-        />
-      </div>
-      <div className="signup">
-        <label>Phone#: </label>
-          <input type="number"
-            onChange={e => setPhoneNumber(e.target.value)}
-            value={phoneNumber}
+        <div className="form-group">
+          <label>First Name:</label>
+          <input
+            type="text"
+            onChange={(e) => setFirstName(e.target.value)}
+            value={firstName}
           />
-      </div>
-      <div className="signup">
-      <label>Email: </label>
-        <input type="email"
-          onChange={e => setEmail(e.target.value)}
-          value={email}
-        />
-      </div>
-      <div className="signup">
-      <label>Username: </label>
-        <input type="text"
-          onChange={e => setUsername(e.target.value)}
-          value={username}
-        />
-      </div>
-      <div className="signup">
-      <label>Password: </label>
-        <input type="password"
-          onChange={e => setPassword(e.target.value)}
-          value={password}
-        />
-      </div>
-        
-        <button className="signup">Signup</button>
+        </div>
+        <div className="form-group">
+          <label>Last Name:</label>
+          <input
+            type="text"
+            onChange={(e) => setLastName(e.target.value)}
+            value={lastName}
+          />
+        </div>
+        {/* <div className="form-group">
+          <label>Username:</label>
+          <input
+            type="text"
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+          />
+        </div> */}
+        <div className="form-group">
+          <label>Email:</label>
+          <input
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
+        </div>
+        <div className="form-group">
+          <label>Password:</label>
+          <input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+        </div>
+        <button className="signup-button">Signup</button>
       </form>
-    </div>
-    </div>
+    </article>
+    <footer className="login-link">
+      Already have an account? <Link to="/login">Login</Link>
+    </footer>
+  </section>
   );
 }
  

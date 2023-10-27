@@ -30,6 +30,11 @@ router.post('/bid/:auctionId', userController.placeBid, (req,res)=>{
   return res.status(200).json(res.locals.auction)
 })
 
+router.get('/openBids', userController.getOpenBids, (req,res)=> {
+  console.log(req.user)
+  return res.status(200).json(res.locals.auctions)
+})
+
 // User Auction Routes
 router.get('/hostedAuctions', userController.getHostedAuctions, (req,res)=> {
   return res.status(200).json(res.locals.auctions)

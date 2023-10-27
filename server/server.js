@@ -6,7 +6,7 @@ const cors = require("cors");
 const passport = require('passport');
 const session = require('express-session');
 const morgan = require('morgan');
-
+const cookieParser = require('cookie-parser')
 
 const PORT = 3000;
 const app = express();
@@ -16,7 +16,7 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
-
+app.use(cookieParser())
 
 
 // const RedisStore = require('connect-redis').default;
@@ -84,23 +84,25 @@ require('../server/config/passport-config.js')(passport);
 
 const authRouter = require("./routes/authRouter");
 const listingRouter = require('./routes/listingRouter');
-const imageRouter = require('./routes/imageRouter');
+//const imageRouter = require('./routes/imageRouter');
 const cartRouter = require('./routes/cartRouter');
 const auctionRouter = require('./routes/auctionRouter');
 const userRouter = require('./routes/userRouter');
 const protectedRoute = require('./middleware/protectedRoute')
+const paymentRouter = require('./routes/paymentRouter');
 
-app.use('/', express.static(path.join(__dirname, '../dist')));
+app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 app.use("/auction", auctionRouter)
-app.use("/user", protectedRoute, userRouter)
+app.use("/user", userRouter)
 app.use("/listing", listingRouter);
-app.use("/image", imageRouter);
+//app.use("/image", imageRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
+app.use("/payments", paymentRouter);
 
 app.get("*", (req, res) => {
-  console.log("no build");
+  console.log(req.path)
   res
     .status(200)
     .sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
