@@ -49,7 +49,9 @@ const SignUp = () => {
 
         <button className="signup-button">Signup</button>
       </SignUpDetailsForm>
-      <div className="login-link">Register with google</div>
+      <div>
+        <a href="/auth/google">Register with google</a>
+      </div>
     <footer className="login-link">
       Already have an account? <Link to="/login">Login</Link>
     </footer>
