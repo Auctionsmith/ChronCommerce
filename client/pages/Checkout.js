@@ -11,94 +11,145 @@ import {
     setError,
   } from '../slices/paymentSlice';
 import { STRIPE_PUBLISHABLE_KEY } from "../stripe"
-  const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
+  // const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
+// import React, { useState, useEffect } from "react";
 //IndividualAuction Item box
-const PaymentForm = () => {
-    const stripe = useStripe();
-    const elements = useElements();
-    const dispatch = useDispatch();
-    const [amount, setAmount] = useState(1000); // Set your default amount
-    const [currency, setCurrency] = useState('usd'); // Set your default currency
-    const { clientSecret, loading, error } = useSelector((state) => state.payment);
-  
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        if (!stripe || !elements) {
-          return;
-        }
-      
-        // Dispatch the loading action
-        dispatch(setLoading(true));
-      
-        try {
-          // Dispatch the createPaymentIntent thunk
-          const clientSecret = await dispatch(createPaymentIntent({ amount, currency }));
-      
-          if (typeof clientSecret !== 'string' || !clientSecret.startsWith('pi_')) {
-            // Handle the incorrect format and return an error or throw an error
-            dispatch(setError("Invalid client secret format"));
-            return;
-          }
-      
-          // Use the retrieved clientSecret in the state
-          const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-              card: elements.getElement(CardElement),
-            },
-          });
-      
-          if (result.error) {
-            console.error(result.error);
-            // Handle the payment error
-            dispatch(setError(result.error.message));
-          } else if (result.paymentIntent.status === 'succeeded') {
-            // Payment succeeded
-            dispatch(setSuccess(true));
-          }
-        } catch (e) {
-          // Dispatch the error action
-          dispatch(setError(e.message));
-        }
-      
-        // Dispatch the loading action to false
-        dispatch(setLoading(false));
-      };
-      
-  
-    return (
-      <form onSubmit={handleSubmit}>
-        <label>
-          Amount:
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
-        </label>
-        <label>
-          Currency:
-          <select
-            value={currency}
-            onChange={(e) => setCurrency(e.target.value)}
-          >
-            <option value="usd">USD</option>
-            <option value="eur">EUR</option>
-            {/* Add other currency options as needed */}
-          </select>
-        </label>
-        <label>
-          Card details
-          <CardElement />
-        </label>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Processing...' : 'Pay'}
+const PaymentForm = () => (
+    <section>
+      <div className="product">
+        <img
+          src="https://i.imgur.com/EHyR2nP.png"
+          alt="The cover of Stubborn Attachments"
+        />
+        <div className="description">
+        <h3>Stubborn Attachments</h3>
+        <h5>$20.00</h5>
+        </div>
+      </div>
+      <form action="payments/create-checkout-session" method="POST">
+        <button type="submit">
+          Checkout
         </button>
-        {error && <div className="error">{error}</div>}
       </form>
-    );
-  };
+    </section>
+  );
   
-  export default PaymentForm;
+  const Message = ({ message }) => (
+    <section>
+      <p>{message}</p>
+    </section>
+  );
+  
+  export default function App() {
+    const [message, setMessage] = useState("");
+  
+    useEffect(() => {
+      // Check to see if this is a redirect back from Checkout
+      const query = new URLSearchParams(window.location.search);
+  
+      if (query.get("success")) {
+        setMessage("Order placed! You will receive an email confirmation.");
+      }
+  
+      if (query.get("canceled")) {
+        setMessage(
+          "Order canceled -- continue to shop around and checkout when you're ready."
+        );
+      }
+    }, []);
+  
+    return message ? (
+      <Message message={message} />
+    ) : (
+      <PaymentForm />
+    );
+  }
+
+
+
+  //   const stripe = useStripe();
+  //   const elements = useElements();
+  //   const dispatch = useDispatch();
+  //   const [amount, setAmount] = useState(1000); // Set your default amount
+  //   const [currency, setCurrency] = useState('usd'); // Set your default currency
+  //   const { clientSecret, loading, error } = useSelector((state) => state.payment);
+  
+  //   const handleSubmit = async (event) => {
+  //       event.preventDefault();
+  //       if (!stripe || !elements) {
+  //         return;
+  //       }
+      
+  //       // Dispatch the loading action
+  //       dispatch(setLoading(true));
+      
+  //       try {
+  //         // Dispatch the createPaymentIntent thunk
+  //         const clientSecret = await dispatch(createPaymentIntent({ amount, currency }));
+      
+  //         if (typeof clientSecret !== 'string' || !clientSecret.startsWith('pi_')) {
+  //           // Handle the incorrect format and return an error or throw an error
+  //           dispatch(setError("Invalid client secret format"));
+  //           return;
+  //         }
+      
+  //         // Use the retrieved clientSecret in the state
+  //         const result = await stripe.confirmCardPayment(clientSecret, {
+  //           payment_method: {
+  //             card: elements.getElement(CardElement),
+  //           },
+  //         });
+      
+  //         if (result.error) {
+  //           console.error(result.error);
+  //           // Handle the payment error
+  //           dispatch(setError(result.error.message));
+  //         } else if (result.paymentIntent.status === 'succeeded') {
+  //           // Payment succeeded
+  //           dispatch(setSuccess(true));
+  //         }
+  //       } catch (e) {
+  //         // Dispatch the error action
+  //         dispatch(setError(e.message));
+  //       }
+      
+  //       // Dispatch the loading action to false
+  //       dispatch(setLoading(false));
+  //     };
+      
+  
+  //   return (
+  //     <form onSubmit={handleSubmit}>
+  //       <label>
+  //         Amount:
+  //         <input
+  //           type="number"
+  //           value={amount}
+  //           onChange={(e) => setAmount(e.target.value)}
+  //         />
+  //       </label>
+  //       <label>
+  //         Currency:
+  //         <select
+  //           value={currency}
+  //           onChange={(e) => setCurrency(e.target.value)}
+  //         >
+  //           <option value="usd">USD</option>
+  //           <option value="eur">EUR </option>
+  //           {/* Add other currency options as needed */}
+  //         </select>
+  //       </label>
+  //       <label>
+  //         Card details
+  //         <CardElement />
+  //       </label>
+  //       <button type="submit" disabled={loading}>
+  //         {loading ? 'Processing...' : 'Pay'}
+  //       </button>
+  //       {error && <div className="error">{error}</div>}
+  //     </form>
+  //   );
+  // };
   
 
 
