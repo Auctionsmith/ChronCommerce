@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Switch, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Login from "../pages/Login";
-
+import axios from 'axios'
 
 const SignUp = () => {
 
@@ -23,6 +23,15 @@ const SignUp = () => {
 
   const handleSubmit = async(e) =>{
     e.preventDefault()
+    const credentials = {
+      first_name : firstName,
+      last_name : lastName,
+      email : email,
+      password : password
+    }
+    axios.post('auth/register', credentials).then((data)=>{
+      navigate('/login')
+    }).catch((err)=>console.log(err))
   }
   
   return (

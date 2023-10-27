@@ -26,7 +26,7 @@ const Login = () => {
     .then((payload)=> {  
       dispatch(getUserInfo(payload.data))
       navigate('/')
-      axios.get('auth/user').then((data)=>console.log(data))
+      axios.get('auth/user').then((data)=>console.log(data)).catch((err)=>console.log(err))
     })
 
 
@@ -58,7 +58,7 @@ const Login = () => {
         <button>Login</button>
       </form>
     </article>
-    <div><a href="/auth/google"></a></div>
+    <div><a href="/auth/google">Login With google</a></div>
     <footer className="signup-link">
       Don't have an account? <Link to="/signup">Sign Up</Link>
     </footer>

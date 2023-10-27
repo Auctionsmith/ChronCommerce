@@ -10,7 +10,12 @@ const bcrypt = require('bcryptjs')
 const url = 'postgres://ywbqzgag:XZi_XWfr8nzIqAx6wE9_pCSkCF-bzvFM@mahmud.db.elephantsql.com/ywbqzgag'
 const sequelize = new Sequelize(url, {
   logging: false,
-})
+  pool: {
+    max: 100,      // maximum number of connections in pool
+    min: 0,      // minimum number of connections in pool
+    idle: 10000  // time (in milliseconds) after which idle connections are closed
+  }
+});
 
 // sequelize.authenticate()
 //   .then(()=> console.log('Connected to db'))
@@ -302,5 +307,6 @@ const buildDummyDB = async() => {
 }
 // uncomment to add dummy data
 // buildDummyDB();
+console.log(sequelize.connectionManager.pool);  // Total connections
 
 module.exports = { User, Auction, followedAuctions };

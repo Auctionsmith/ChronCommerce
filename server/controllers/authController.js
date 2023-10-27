@@ -37,6 +37,7 @@ authController.createUser = async (req, res, next) => {
 
 
 authController.logout = (req, res, next) => {
+  console.log('lOGGIN OUT')
   req.logout((err) => {
     if (err) {
       return next(err);
