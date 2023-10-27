@@ -19,39 +19,61 @@ app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
 
 
+// const RedisStore = require('connect-redis').default;
+// const { createClient } = require('redis');
+
+const connectRedis = require('connect-redis');
+// const RedisStore = connectRedis(session)
 const RedisStore = require('connect-redis').default;
-const { createClient } = require('redis');
-const client = createClient({
+const redis = require('redis')
+
+
+const redisClient = redis.createClient({
   password: 'PIvyCh6v09PexC8KI06UoHsC2emwsEW0',
   socket: {
       host: 'redis-14153.c60.us-west-1-2.ec2.cloud.redislabs.com',
       port: 14153
   }
 })
-client.connect()
-const store = new RedisStore({ client: client, prefix: "myapp:", ttl: 3600});
+
+redisClient.on('error', (err) => {
+  console.log('Could not establish a connection with redis' + err)
+})
+redisClient.on('connect', (err) => {
+  console.log('Connected to redis successful')
+})
+
+redisClient.connect()
+
 app.use(session({
-    secret: 'your_secret_key',
-    resave: false,
-    saveUninitialized: true,
-    store: store,
-    cookie: {
-      httpOnly: true, 
-      secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
-      maxAge: 1000 * 60 * 60, // 1 day in milliseconds
-      sameSite: 'lax'
-  },
-}));
+  store: new RedisStore({ client: redisClient }),
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false, // if true only transmit cookie over https
+    httpOnly: false, // if true prevent client side JS from reading the cookie 
+    maxAge: 1000 * 60 * 10 // session max age in miliseconds
+}
+}))
 
 
-// session configuration
-// app.use(
-//   session({
-//     secret: 'hello',
+
+
+// below code block was first attempt at implementing redis
+// redisClient.connect()
+
+// const store = new RedisStore({ client: redisClient, prefix: "myapp:", ttl: 60});
+
+
+// app.use(session({
+//     secret: 'your_secret_key',
 //     resave: false,
 //     saveUninitialized: true,
-//   }),
-// );
+//     store: store
+// }));
+
+
 
 // initilize use of passport and sessions
 app.use(passport.initialize());

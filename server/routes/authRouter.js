@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const session = require('express-session');
 const authController = require("../controllers/authController");
 
 
 router.post("/login", passport.authenticate('local', {failureMessage: 'User is not authenticated'}), (req, res) => {
+  // const sess = req.session;
+  // const { username, password } = req.body;
+  // sess.username = username;
+  // sess.password = password;
   // authController.verifyUser,
   return res.status(200).json(req.user);
 });
@@ -24,7 +29,13 @@ router.post("/register", authController.createUser, (req, res) => {
   return res.status(200).send('Account creation success');
 });
 
-router.post("/logout", authController.logout, (req, res) => {
+router.get("/logout", authController.logout, (req, res) => {
+  req.session.destroy((err) => {
+    console.log('DESTROYING ALL SESSIONS')
+    if(err) {
+      return console.log(err)
+    }
+  })
   return res.sendStatus(200);
 });
 
