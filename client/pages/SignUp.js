@@ -73,6 +73,7 @@ const SignUp = () => {
         <button className="signup-button">Signup</button>
       </form>
     </article>
+    <div className="login-link">Register with google</div>
     <footer className="login-link">
       Already have an account? <Link to="/login">Login</Link>
     </footer>
