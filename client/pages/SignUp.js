@@ -4,24 +4,20 @@ import { BrowserRouter as Router, Routes, Route, Link, Switch, useNavigate } fro
 import { Outlet } from "react-router-dom";
 import Login from "../pages/Login";
 import axios from 'axios'
+import styled from 'styled-components'
+import { useRef } from 'react'
+
 
 const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  // const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  // const [city, setCity] = useState('')
-  // const [zip, setZip] = useState('')
-  // const [state, setState] = useState('')
-  // const [phoneNumber, setPhoneNumber] = useState('')
-  // const [address, setaddress] = useState('')
-  
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null)
+  const emailRef = useRef(null)
+  const passwordRef = useRef(null)
 
-  const handleSubmit = async(e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault()
     const credentials = {
       first_name : firstName,
@@ -35,59 +31,58 @@ const SignUp = () => {
   }
   
   return (
-    <section className="signup-container">
-    <article className="signup-box">
+    <SignUpWrapper>
+    <SignUpDetailsContainer className="signup-container">
       <h3>Signup</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
+      <SignUpDetailsForm onSubmit={handleSubmit}>
           <label>First Name:</label>
-          <input
-            type="text"
-            onChange={(e) => setFirstName(e.target.value)}
-            value={firstName}
-          />
-        </div>
-        <div className="form-group">
+          <input type="text" ref={firstNameRef}/>
+
           <label>Last Name:</label>
-          <input
-            type="text"
-            onChange={(e) => setLastName(e.target.value)}
-            value={lastName}
-          />
-        </div>
-        {/* <div className="form-group">
-          <label>Username:</label>
-          <input
-            type="text"
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
-          />
-        </div> */}
-        <div className="form-group">
+          <input type="text" ref={lastNameRef}/>
+        
           <label>Email:</label>
-          <input
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-        </div>
-        <div className="form-group">
+          <input type="email" ref={emailRef}/>
+  
           <label>Password:</label>
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          />
-        </div>
+          <input type="password"ref={passwordRef}/>
+
         <button className="signup-button">Signup</button>
-      </form>
-    </article>
-    <div className="login-link">Register with google</div>
+      </SignUpDetailsForm>
+      <div className="login-link">Register with google</div>
     <footer className="login-link">
       Already have an account? <Link to="/login">Login</Link>
     </footer>
-  </section>
+  </SignUpDetailsContainer>
+  <SUBackgroundContainer></SUBackgroundContainer>
+  </SignUpWrapper>
   );
 }
+
+const SignUpWrapper = styled.div`
+display: flex;
+flex-direction: row;
+`
+const SUBackgroundContainer = styled.div`
+display: flex;
+background-color: var(--primary-color);
+width: 100vh;
+height: 100vh;
+`
+const SignUpDetailsForm = styled.form`
+display: flex;
+flex-direction: column;
+gap: 1em;
+`
+
+const SignUpDetailsContainer = styled.section`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 1em;
+width: 100vh;
+height: 100vh;
+`
  
 export default SignUp;

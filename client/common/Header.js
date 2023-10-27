@@ -20,7 +20,8 @@ const Navigation = () => {
 
 const Header = () => {
     const { userInfo } = useSelector((state)=> state.user)
-    console.log(userInfo)
+    const { LoggedIn } = useSelector((state)=>state.user)
+
     const timeBasedGreeting = (currTime = new Date().getHours(), name = userInfo.first_name) => {
         if(currTime >= 0 && currTime <= 12) return `Good Morning, ${name}`
         if(currTime > 12 && currTime <= 17) return `Good Afternoon, ${name}`
@@ -30,10 +31,9 @@ const Header = () => {
     return (
             <HeaderWrapper>
                 <HeaderContainer>
-                    <h1>{timeBasedGreeting()}</h1>
+                    {LoggedIn&&<h1>{timeBasedGreeting()}</h1>}
                 <Navigation />
                 </HeaderContainer>
-         
             </HeaderWrapper>
     )
 }

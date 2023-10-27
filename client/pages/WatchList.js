@@ -35,8 +35,8 @@ const WatchList = () => {
   }, [])
 
   return (
-    <div>
-      <h2>Watching...</h2>
+    <WatchListContainer>
+      <h2>Open Bids</h2>
     <OpenBidsContainer>
     {openBids.map((listing) => {
       return <Listing 
@@ -48,6 +48,7 @@ const WatchList = () => {
       endTime={listing.end_time}
        />;
     })}</OpenBidsContainer>
+    <h2>Followed Auctions</h2>
     <FollowAuctionsContainer>
     {followedItems.map((listing) => {
       return <Listing 
@@ -61,14 +62,21 @@ const WatchList = () => {
     })}
 
     </FollowAuctionsContainer>
-    </div>
+    </WatchListContainer>
   )
 }
+
+const WatchListContainer = styled.div`
+display: flex;
+flex-direction: column;
+gap: 2em;
+padding: 2em;
+`
 
 const OpenBidsContainer = styled.div`
 display: flex;
 flex-direction: row;
-margin-left: 4em;
+margin-bottom: 4em;
 flex-wrap:nowrap;
 overflow-x: auto;
 `
