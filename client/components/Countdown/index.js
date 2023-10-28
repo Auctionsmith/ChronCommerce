@@ -70,12 +70,8 @@ const Container = styled.div`
   transform: translateX(-50%) translateY(-50%);
   padding: .2rem .4rem;
   border-radius: 8px;
-  /* visibility: hidden; */
 `;
 
-const Expired = styled.div`
-  background-color: rgba(247,234,235);
-`
 
 const DigitDisplay = styled.div`
   display: flex;

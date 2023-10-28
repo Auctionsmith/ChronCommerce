@@ -24,6 +24,7 @@ const Listing = ( { name, img, price, endTime, id } ) => {
 }
 
 
+
 const ItemDetailsLink = styled(Link)`
 color: black;
 border-radius:.5em;
