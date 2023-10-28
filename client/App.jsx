@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux'
 import { useEffect } from "react";
 import axios from 'axios'
 import { setAllItems } from "./slices/auctionItemsSlice";
-import { useNavigate } from "react-router-dom";
 
 const App  = () => {
     const dispatch = useDispatch()
