@@ -1,11 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import CategoriesSB from '../ScrollBars/CategoriesSB'
 // import CategoriesSB from '../ScrollBars/CategoriesSB'
 
 const SellForm = () => {
+    const navigate = useNavigate()
+
     const listingNameRef = useRef(null);
     const listingDescriptionRef = useRef(null)
     const startingPriceRef = useRef(null)
@@ -14,7 +17,7 @@ const SellForm = () => {
     const startTimeRef = useRef(null)
     const endTimeRef = useRef(null)
     
-    const newError = true;
+    const [errorMessage, setErrorMessage] = useState({err: ''});
     // currently built without dispatch since
     const postListing = (event) => {
         // we don't want the page to refresh on submisssion
@@ -66,10 +69,14 @@ const SellForm = () => {
             headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(response => {
-            console.log(response.data)
+            console.log(response)
+            navigate('/')
         })
-        .catch(error => {
-            console.log('Error uploading formData', error)
+        .catch(err => {
+            setErrorMessage({
+                err: err.response.data
+              })
+            console.log('Error uploading formData', err)
         })
     }
 
@@ -98,7 +105,7 @@ const SellForm = () => {
         <CategoriesSB selectRef={selectRef} form={true}/>
   
         <button type="submit">Submit</button>
-        {newError&&<p>Invalid Inputs, please check type</p>}
+        {errorMessage&&<p>{errorMessage.err}</p>}
     </SellFormWrapper>
   </SellFormContainer>
   )
