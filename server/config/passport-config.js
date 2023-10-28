@@ -18,7 +18,7 @@ module.exports = function () {
           })
         // return done(null, foundUser);
       })
-      .catch((err) => next(err));
+      .catch((err) => done(err));
   }));
 
   passport.serializeUser((user, done) => {
