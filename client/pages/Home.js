@@ -23,6 +23,7 @@ useEffect(()=>{
     .catch(err => console.log(err))
 })
 
+
     return (
         <HomeWrapper>        
         <Search>
@@ -30,8 +31,8 @@ useEffect(()=>{
         </Search>
    
         <ItemOfTheDay/>
-        <HotDealsTag>Hot Deals!</HotDealsTag>
         <Container>
+        <HotDealsTag>Hot Deals!</HotDealsTag>
         <AllListings />
         </Container>
       
@@ -66,6 +67,8 @@ const Container = styled.div`
 display: flex;
 background-color: var(--background-color);
 padding: 3rem;
+flex-direction: column;
+align-items: center;
 justify-content: center;
 `
 export default Home;

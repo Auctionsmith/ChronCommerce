@@ -9,10 +9,10 @@ import { useDispatch } from 'react-redux'
 import { useEffect } from "react";
 import axios from 'axios'
 import { setAllItems } from "./slices/auctionItemsSlice";
+import { useNavigate } from "react-router-dom";
 
 const App  = () => {
     const dispatch = useDispatch()
-
     useEffect(()=>{
         axios.get('/auction')
         .then(data => { console.log(data.data)
@@ -21,6 +21,7 @@ const App  = () => {
         })
         .catch(err => console.log(err))
     })
+    
 
     return (
         <div>

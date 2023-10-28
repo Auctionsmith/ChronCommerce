@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Switch, useNavigate } from "react-router-dom";
 import SignUp from "../pages/SignUp";
 import axios from 'axios'
@@ -10,6 +10,7 @@ import styled from 'styled-components'
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const [errorMessage, setErrorMessage] = useState({
     err: ''
   });
@@ -38,10 +39,13 @@ const Login = () => {
     })
   }
 
+  useEffect(()=>{
+    
+  },[])
 
-  const handleLogin = () => {
-    axios.get('/auth/google').then((data)=>{console.log(data)}).catch((err)=>console.log(err))
-  }
+  // const handleLogin = () => {
+  //   axios.get('/auth/google').then((data)=>{console.log(data)}).catch((err)=>console.log(err))
+  // }
   return ( 
     <LoginWrapper>
       <BackgroundContainer>
@@ -62,7 +66,7 @@ const Login = () => {
 
         <button type="submit">Login</button>
 
-        <button onClick={handleLogin}>Test Google</button>
+        {/* <button onClick={handleLogin}>Test Google</button> */}
         <div><a href="/auth/google">Login With google</a></div>
         {errorMessage&&<InvalidLogin>{errorMessage.err}</InvalidLogin>}
       </DetailsForm>

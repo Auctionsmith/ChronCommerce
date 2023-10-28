@@ -22,12 +22,12 @@ router.get("/google",
 
 router.get("/google/callback", passport.authenticate('google', { failureRedirect: '/register' }), (req, res) => {
   // successful authenication, redirect to dashboard/homepage
-  return res.status(200).json(req.user)
-  // if (process.env.NODE_ENV === 'production') {
-  //   return res.status(200).redirect('http://localhost:3000/');
-  // } else {
-  //   return res.status(200).redirect('http://localhost:8080/');
-  // }
+  // return res.status(200).json(req.user)
+  if (process.env.NODE_ENV === 'production') {
+    return res.status(200).redirect('http://localhost:3000/');
+  } else {
+    return res.status(200).redirect(`http://localhost:8080/`);
+  }
 })
 
 router.post("/register", authController.createUser, (req, res) => {
