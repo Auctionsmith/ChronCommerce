@@ -3,7 +3,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import { setSearchResultItems } from '../../slices/auctionItemsSlice'
+import { setSearchResultItems, setAllItems } from '../../slices/auctionItemsSlice'
 import CategoriesSB from '../ScrollBars/CategoriesSB'
 
 const SearchBar = () => {
@@ -36,7 +36,7 @@ const SearchBar = () => {
     );
   
     
-    dispatch(setSearchResultItems(data))
+    dispatch(setAllItems(data))
 
   }
 

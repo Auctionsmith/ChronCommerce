@@ -16,7 +16,21 @@ const initialState = {
   LoggedIn: false,
   openBids: [],
   followedItems: [],
-  wonItems: [],
+  wonItems: [  {
+    "id": 2,
+    "start_time": "2023-10-23T00:31:51.754Z",
+    "end_time": "2023-10-23T00:31:51.754Z",
+    "status": "closed",
+    "current_price": 151,
+    "buyer_id": 1,
+    "seller_id": 2,
+    "item_name": "Dummy Item 2",
+    "img_url": "item2.jpg",
+    "category": "clothing & accessories",
+    "description": "Example Update.",
+    "createdAt": "2023-10-23T00:31:53.100Z",
+    "updatedAt": "2023-10-25T13:10:44.210Z"
+  }],
   purchaseHistory: [],
   itemsForSale: [],
 };
