@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { BiCart } from "react-icons/bi"; 
@@ -14,7 +15,13 @@ import { STRIPE_PUBLISHABLE_KEY } from "../stripe"
   // const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
 // import React, { useState, useEffect } from "react";
 //IndividualAuction Item box
+
+
+
+
+
 const PaymentForm = () => (
+
     <section>
       <div className="product">
         <img
@@ -22,7 +29,7 @@ const PaymentForm = () => (
           alt="The cover of Stubborn Attachments"
         />
         <div className="description">
-        <h3>TestAuctionItem</h3>
+        <h3>Test Auction Item</h3>
         <h5>$20.00</h5>
         </div>
       </div>
