@@ -103,7 +103,7 @@ const check = (event) => {
          {!followedItems.find((e)=> e.id === listing.id) ? <FollowButton onClick={followAuction}>Follow</FollowButton> : <FollowButton onClick={unFollowAuction}>Unfollow</FollowButton>}
        </FBContainer>
        <h3>Name: {listing.item_name}</h3>
-       <p>Price: <b>{listing.current_price}</b></p>
+       <p>Price: $<b>{listing.current_price}</b></p>
        <p>Ends at: {listing.end_time}</p>
        <p>Description: {listing.description}</p>
        {userId != listing.seller_id&& <><label>Please Enter a Bid Below</label>
