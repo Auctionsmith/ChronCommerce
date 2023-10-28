@@ -37,6 +37,10 @@ const Login = () => {
     })
   }
 
+
+  const handleLogin = () => {
+    axios.get('/auth/google')
+  }
   return ( 
     <LoginWrapper>
       <BackgroundContainer>
@@ -54,6 +58,7 @@ const Login = () => {
             type="password"
             ref={passwordRef}
           />
+
         <button type="submit">Login</button>
         <div><a href="/auth/google">Login With google</a></div>
         {errorMessage&&<InvalidLogin>{errorMessage.err}</InvalidLogin>}
