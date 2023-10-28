@@ -26,11 +26,13 @@ const Listing = ( { name, img, price, endTime, id } ) => {
 
 
 const ItemDetailsLink = styled(Link)`
+display: grid;
 color: black;
-border-radius:.5em;
+border-radius:1em;
 padding: 10px;
 text-decoration: none;
 background-color: var(--bid-button-color);
+justify-content: center;
 `
 
 const ItemContainer = styled.div`

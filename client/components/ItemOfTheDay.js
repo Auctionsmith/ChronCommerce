@@ -50,11 +50,14 @@ gap: 20px;
 `
 
 const IADetailsLink = styled(Link)`
+display: grid;
 color: black;
-border-radius:.5em;
+border-radius:1em;
 padding: 10px;
 text-decoration: none;
 background-color: var(--bid-button-color);
+font-weight: 400;
+justify-content: center;
 `
 
 const ImageContainer = styled.div`

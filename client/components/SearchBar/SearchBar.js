@@ -68,12 +68,13 @@ const SearchButton = styled.button`
 position: relative;
 align-self: center;
 background-color: var(--bid-button-color);
-padding: 1rem;
 border-radius: 1em;
 width: 10em;
 height: 3em;
 margin-left: 2em;
 margin-bottom: 1em;
+font-family: 'Montserrat';
+font-weight: 400;
 `
 
 

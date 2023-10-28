@@ -17,10 +17,15 @@ const AuctionBadge = () => {
 
 const BellContainer = styled.div`
 position: relative;
+display: grid;
+justify-content: center;
+align-content: center;
 background-color: var(--nav-button-color);
 border: 1px solid black;
-border-radius: 48%;
 padding: .5em;
+border-radius: 50%;
+width: .5em;
+height: .5em;
 `
 const Notification = styled.span`
 background-color: #fa3e3e;
