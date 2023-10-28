@@ -106,10 +106,10 @@ const check = (event) => {
        <p>Price: <b>{listing.current_price}</b></p>
        <p>Ends at: {listing.end_time}</p>
        <p>Description: {listing.description}</p>
-       <label>Please Enter a Bid Below</label>
+       {userId != listing.seller_id&& <><label>Please Enter a Bid Below</label>
        <input type='text' ref={bidRef}/>
        {errorMessage&&<BidError>{errorMessage.err}</BidError>}
-       <IABidButton onClick={makeBid}>Bid</IABidButton>
+       <IABidButton onClick={makeBid}>Bid</IABidButton></>}
        {userId == listing.seller_id&&<DeleteButton onClick={deleteAuction}>Delete Auction</DeleteButton>}
        </DetailsContainer>
   </ListingDetailsWrapper>
