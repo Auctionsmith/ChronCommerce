@@ -14,8 +14,8 @@ const Listing = ( { name, img, price, endTime, id } ) => {
   return (
     <ItemContainer >
       <img src={img} alt="A picture of the item up for auction"/>
-      <p>Name :{name}</p>
-      <p>Price : <b>{price}</b></p>
+      <p>Name: {name}</p>
+      <p>Price: $<b>{price}</b></p>
       <p>Ends at {dateFmt(endTime)}</p>
       <Countdown date={endTime}/>
       <ItemDetailsLink to={`/${id}`}>View Auction Details</ItemDetailsLink>

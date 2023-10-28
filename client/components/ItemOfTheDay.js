@@ -32,7 +32,7 @@ const ItemOfTheDay = () => {
         <DescriptionContainer>
             <p>Name: {itemOfTheDay.item_name}</p>
             <p>Ends In: {itemOfTheDay.end_time}</p>
-            <p>Current Bid: <b>{itemOfTheDay.current_price}</b></p>
+            <p>Current Bid: $<b>{itemOfTheDay.current_price}</b></p>
             <IADetailsLink to={`/${itemOfTheDay.id}`}>Get More Details</IADetailsLink>
         </DescriptionContainer>
         </DayWrapper>

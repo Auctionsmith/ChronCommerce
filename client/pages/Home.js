@@ -59,11 +59,13 @@ padding: 0px;
 const HotDealsTag = styled.h2`
 margin: 5em;
 background-color: var(--background-color);
+padding: 5px;
 `
 
 const Container = styled.div`
 display: flex;
 background-color: var(--background-color);
 padding: 3rem;
+justify-content: center;
 `
 export default Home;
