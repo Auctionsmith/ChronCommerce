@@ -32,7 +32,7 @@ const WonListing = () => {
             </WonItemContainer>
         )
     })}
-    <h4>Total Price: {totalPrice}</h4>
+         <h4>Total Price: {totalPrice}</h4>
     </WonItemWrapper>
   )
 }

@@ -15,9 +15,12 @@ import { STRIPE_PUBLISHABLE_KEY } from "../stripe"
   // const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
 // import React, { useState, useEffect } from "react";
 //IndividualAuction Item box
-const PaymentForm = () => (
+// import CheckoutWrapper from './CheckoutWrapper'; // Make sure to import CheckoutWrapper
+
+
+const PaymentForm = ( wonItems, totalPrice ) => (
   <CheckoutWrapper>
-    <WonListing></WonListing>
+    <WonListing wonItems={wonItems} totalPrice={totalPrice} />
     <section>
       <div className="product">
         <img
@@ -25,8 +28,8 @@ const PaymentForm = () => (
           alt="The cover of Stubborn Attachments"
         />
         <div className="description">
-        <h3>TestAuctionItem</h3>
-        <h5>$20.00</h5>
+          <h3>Test Auction Item</h3>
+          <h5>$20.00</h5>
         </div>
       </div>
       <form action="payments/create-checkout-session" method="POST">
@@ -35,39 +38,66 @@ const PaymentForm = () => (
         </button>
       </form>
     </section>
-    </CheckoutWrapper>
-  );
+  </CheckoutWrapper>
+);
+
+export default PaymentForm;
+
+
+
+// const PaymentForm = ({ wonItems, totalPrice }) => (
+//   <CheckoutWrapper>
+//     <WonListing></WonListing>
+//     <section>
+//       <div className="product">
+//         <img
+//           src="https://i.imgur.com/EHyR2nP.png"
+//           alt="The cover of Stubborn Attachments"
+//         />
+//         <div className="description">
+//         <h3>Test Auction Item</h3>
+//         <h5>$20.00</h5>
+//         </div>
+//       </div>
+//       <form action="payments/create-checkout-session" method="POST">
+//         <button type="submit">
+//           Checkout
+//         </button>
+//       </form>
+//     </section>
+//     </CheckoutWrapper>
+//   );
   
-  const Message = ({ message }) => (
-    <section>
-      <p>{message}</p>
-    </section>
-  );
+//   const Message = ({ message }) => (
+//     <section>
+//       <p>{message}</p>
+//     </section>
+//   );
   
-  export default function App() {
-    const [message, setMessage] = useState("");
+//   export default function App() {
+//     const [message, setMessage] = useState("");
   
-    useEffect(() => {
-      // Check to see if this is a redirect back from Checkout
-      const query = new URLSearchParams(window.location.search);
+//     useEffect(() => {
+//       // Check to see if this is a redirect back from Checkout
+//       const query = new URLSearchParams(window.location.search);
   
-      if (query.get("success")) {
-        setMessage("Order placed! You will receive an email confirmation.");
-      }
+//       if (query.get("success")) {
+//         setMessage("Order placed! You will receive an email confirmation.");
+//       }
   
-      if (query.get("canceled")) {
-        setMessage(
-          "Order canceled -- continue to shop around and checkout when you're ready."
-        );
-      }
-    }, []);
+//       if (query.get("canceled")) {
+//         setMessage(
+//           "Order canceled -- continue to shop around and checkout when you're ready."
+//         );
+//       }
+//     }, []);
   
-    return message ? (
-      <Message message={message} />
-    ) : (
-      <PaymentForm />
-    );
-  }
+//     return message ? (
+//       <Message message={message} />
+//     ) : (
+//       <PaymentForm />
+//     );
+//   }
 
   const CheckoutWrapper = styled.div`
   display: flex;
