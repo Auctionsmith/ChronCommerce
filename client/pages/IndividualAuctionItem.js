@@ -36,7 +36,10 @@ const IndividualAuctionItem = () => {
     {
       "bidAmount": bid
     })
-      .then((res)=> console.log(res))
+      .then((res)=> {
+        console.log(res)
+        navigate('/')
+      })
       .catch((err)=> setErrorMessage({err: err.response.data}))
   }
 
