@@ -27,6 +27,8 @@ const WonListing = () => {
             <img src={item.img_url} alt="A picture of the item up for auction"/>
               <p>Name :{item.item_name}</p>
               <p>Price : <b>{item.current_price}</b></p>
+              <p>Seller Id : <b>{item.seller_id}</b></p>
+              <p>Auction Id : <b>{item.id}</b></p>
             </WonItemContainer>
         )
     })}

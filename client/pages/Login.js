@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Switch, useNavigate } from "react-router-dom";
 import SignUp from "../pages/SignUp";
 import axios from 'axios'
-import { getUserInfo } from '../slices/userSlice'
+import { getUserInfo, getWonItems } from '../slices/userSlice'
 import { useDispatch } from 'react-redux'
 import { useRef, useState } from 'react'
 import styled from 'styled-components'
@@ -28,6 +28,7 @@ const Login = () => {
       dispatch(getUserInfo(payload.data))
       navigate('/')
       axios.get('auth/user').then((data)=>console.log(data)).catch((err)=>console.log(err))
+      axios.get('user/wonAuctions').then((data)=>dispatch(getWonItems(data.data))).catch((err)=>console.log(err))
     })
     .catch((err)=> {
       console.log(err)
