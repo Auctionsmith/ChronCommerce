@@ -16,6 +16,7 @@ const AllListings = () => {
       id={listing.id}
       img={listing.img_url}
       endTime={listing.end_time}
+      description={listing.description}
        />;
     })}
   </AllListingsContainer>

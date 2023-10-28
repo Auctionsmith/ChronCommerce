@@ -34,7 +34,6 @@ const Header = () => {
                     {LoggedIn&&<h1>{timeBasedGreeting()}</h1>}
                 <Navigation />
                 </HeaderContainer>
-         
             </HeaderWrapper>
     )
 }

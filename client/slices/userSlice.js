@@ -5,6 +5,7 @@ const initialState = {
     address: '123 Main St',
     city: 'Springfield',
     state: 'IL',
+    id:1,
     zip: 62704,
     first_name: 'John',
     last_name: 'Doe',
@@ -40,8 +41,8 @@ export const userSlice = createSlice({
     getFollowedItems: (state, action) => {
       state.followedItems = action.payload;
     },
-    addWonItem: (state, action) => {
-      state.wonItems = state.wonItems.push(action.payload);
+    getWonItems: (state, action) => {
+      state.wonItems = action.payload;
     },
     addPurchaseHistory: (state, action) => {
         state.purchaseHistory = state.purchaseHistory.push(action.payload);
@@ -52,6 +53,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { getUserInfo, login, logout, getAllOpenBids, addWonItem, addPurchaseHistory, sellItem, getFollowedItems } =
+export const { getUserInfo, login, logout, getAllOpenBids, getWonItems, addPurchaseHistory, sellItem, getFollowedItems } =
   userSlice.actions;
 export default userSlice.reducer;

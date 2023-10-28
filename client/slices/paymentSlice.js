@@ -6,9 +6,8 @@ import { createPaymentIntent } from '../paymentThunk';
 const paymentSlice = createSlice({
   name: 'payment',
   initialState: {
-    clientSecret: null,
+    clientSecret: '',
     loading: false,
-    success: false,
     error: null,
   },
   reducers: {
@@ -18,21 +17,13 @@ const paymentSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
-    setSuccess: (state, action) => {
-      state.success = action.payload;
-    },
     setError: (state, action) => {
       state.error = action.payload;
     },
   },
 });
 
-export const {
-  setClientSecret,
-  setLoading,
-  setSuccess,
-  setError,
-} = paymentSlice.actions;
+export const { setClientSecret, setLoading, setError } = paymentSlice.actions;
 
 export default paymentSlice.reducer;
 

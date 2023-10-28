@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Switch, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Login from "../pages/Login";
+import axios from 'axios'
 import styled from 'styled-components'
 import { useRef } from 'react'
 
@@ -18,20 +19,15 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    let firstName = firstNameRef.current.value
-    let lastName = lastNameRef.current.value
-    let email = emailRef.current.value
-    let password = passwordRef.current.value
-
-
-
-  axios.post('auth/register', {email: email, password: password, first_name: firstName, last_name: lastName})
-    .then((payload)=> {  
-    
-      dispatch(getUserInfo(payload.data))
-      navigate('/')
-      axios.get('auth/user').then((data)=>console.log(data))
-    })
+    const credentials = {
+      first_name : firstName,
+      last_name : lastName,
+      email : email,
+      password : password
+    }
+    axios.post('auth/register', credentials).then((data)=>{
+      navigate('/login')
+    }).catch((err)=>console.log(err))
   }
   
   return (
@@ -53,6 +49,9 @@ const SignUp = () => {
 
         <button className="signup-button">Signup</button>
       </SignUpDetailsForm>
+      <div>
+        <a href="/auth/google">Register with google</a>
+      </div>
     <footer className="login-link">
       Already have an account? <Link to="/login">Login</Link>
     </footer>
