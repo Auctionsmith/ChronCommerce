@@ -39,7 +39,7 @@ const Login = () => {
 
 
   const handleLogin = () => {
-    axios.get('/auth/google')
+    axios.get('/auth/google').then((data)=>{console.log(data)}).catch((err)=>console.log(err))
   }
   return ( 
     <LoginWrapper>
@@ -60,6 +60,8 @@ const Login = () => {
           />
 
         <button type="submit">Login</button>
+
+        <button onClick={handleLogin}>Test Google</button>
         <div><a href="/auth/google">Login With google</a></div>
         {errorMessage&&<InvalidLogin>{errorMessage.err}</InvalidLogin>}
       </DetailsForm>
