@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import moment from 'moment'
 import Countdown from './Countdown'
 
-const Listing = ( { name, img, price, endTime, id } ) => {
+const Listing = ( { name, img, price, endTime, id, status } ) => {
 
   const dateFmt = (date) => {
     const newDate = moment(date)
