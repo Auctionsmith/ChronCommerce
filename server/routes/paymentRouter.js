@@ -4,11 +4,11 @@ const stripe = require('stripe')('sk_test_51O4WzPIE7yM6C4rjoxERTUJxhQs0itEKmNYA4
 
 const priceID = 1; 
 
+const YOUR_DOMAIN = `http://localhost:3000`;
 
-
+//option 1
 router.post('/create-checkout-session', async (req, res) => {
   const session = await stripe.checkout.sessions.create({
-    ui_mode: 'embedded',
     line_items: [
       {
         // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
@@ -17,23 +17,54 @@ router.post('/create-checkout-session', async (req, res) => {
       },
     ],
     mode: 'payment',
-    return_url: `http://localhost:8080`,
+    success_url: `${YOUR_DOMAIN}?success=true`,
   });
-  console.log(session);
-  const checkoutSesh = 'https://checkout.stripe.com/c/pay/cs_test_a1EtPNtVtUTYCrcTmKDSSPO25NrUWhiEiQLoWUsnLUsShuGjHSnT9OfzQU#fidkdWxOYHwnPyd1blpxYHZxWjA0TjR8c0RONzA9U3B9aDFBYGNJRmhwT018VGppYD10XUFKRF1qYEpDaUJEc3NCYENyXGluYEhwcWBVRDYycmsxdGZKMmxqNDBfd3Y1Tm9BNGgwdF9sU3FLNTVzNjBhaG1dRCcpJ2hsYXYnP34nYnBsYSc%2FJzE3MTc9PGc0KDxmZzUoMTVhNyhnNDMzKDJjMDRmY2E1ZGE1M2dhYGQzNCcpJ2hwbGEnPydnZDJmZGExNig9MjwzKDExNWQoPTcxYChhMjw3ZjwxZjZkNjQ0PDMzM2cnKSd2bGEnPycxNWZnZDVgMCgzYzU1KDEyYWMoZD09PShnPTI8MjI8ZmMzY2dhYGYzMWYneCknZ2BxZHYnP15YKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSd3YGNgd3dgd0p3bGJsayc%2FJ21xcXV2PyoqdnF3bHVgK2ZqaCd4JSUl'
+
   res.redirect(303, session.url);
-
-
 });
 
-router.get('/session-status', async (req, res) => {
-  const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+//option 2
 
-  res.send({
-    status: session.status,
-    customer_email: session.customer_details.email
-  });
-});
+
+
+// router.post('/create-checkout-session', async (req, res) => {
+  
+//   try {
+//     const session = await stripe.checkout.sessions.create({
+//       ui_mode: 'embedded',
+//       line_items: [
+//         {
+//           // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+//           price: {
+//             priceid: 'price_1O5fhzIE7yM6C4rjG0Fiuo77'
+//           },
+//           quantity: 1,
+//         },
+//       ],
+//       mode: 'payment',
+//       return_url: `http://localhost:8080`,
+//     });
+  
+//     console.log(session.url);
+//     const checkoutSesh = 'https://checkout.stripe.com/c/pay/cs_test_a1EtPNtVtUTYCrcTmKDSSPO25NrUWhiEiQLoWUsnLUsShuGjHSnT9OfzQU#fidkdWxOYHwnPyd1blpxYHZxWjA0TjR8c0RONzA9U3B9aDFBYGNJRmhwT018VGppYD10XUFKRF1qYEpDaUJEc3NCYENyXGluYEhwcWBVRDYycmsxdGZKMmxqNDBfd3Y1Tm9BNGgwdF9sU3FLNTVzNjBhaG1dRCcpJ2hsYXYnP34nYnBsYSc%2FJzE3MTc9PGc0KDxmZzUoMTVhNyhnNDMzKDJjMDRmY2E1ZGE1M2dhYGQzNCcpJ2hwbGEnPydnZDJmZGExNig9MjwzKDExNWQoPTcxYChhMjw3ZjwxZjZkNjQ0PDMzM2cnKSd2bGEnPycxNWZnZDVgMCgzYzU1KDEyYWMoZD09PShnPTI8MjI8ZmMzY2dhYGYzMWYneCknZ2BxZHYnP15YKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSd3YGNgd3dgd0p3bGJsayc%2FJ21xcXV2PyoqdnF3bHVgK2ZqaCd4JSUl'
+//     res.redirect(303, session.url);
+    
+// } catch (error) {
+//   console.log
+//   }
+// }); 
+
+
+
+
+// router.get('/session-status', async (req, res) => {
+//   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+
+//   res.send({
+//     status: session.status,
+//     customer_email: session.customer_details.email
+//   });
+// });
 // //router endpoints
 // router.post('/create-payment-intent', async (req, res) => {
 //   try {
