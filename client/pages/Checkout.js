@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import WonListing from '../components/WonListing'
 import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { BiCart } from "react-icons/bi"; 
@@ -21,7 +21,8 @@ import { STRIPE_PUBLISHABLE_KEY } from "../stripe"
 
 
 const PaymentForm = () => (
-
+  <CheckoutWrapper>
+    <WonListing></WonListing>
     <section>
       <div className="product">
         <img
@@ -39,6 +40,7 @@ const PaymentForm = () => (
         </button>
       </form>
     </section>
+    </CheckoutWrapper>
   );
   
   const Message = ({ message }) => (
@@ -72,6 +74,11 @@ const PaymentForm = () => (
     );
   }
 
+  const CheckoutWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 4em;
+  `
 
 
   //   const stripe = useStripe();

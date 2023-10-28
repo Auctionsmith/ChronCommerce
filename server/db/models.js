@@ -10,7 +10,12 @@ const bcrypt = require('bcryptjs')
 const url = 'postgres://ywbqzgag:XZi_XWfr8nzIqAx6wE9_pCSkCF-bzvFM@mahmud.db.elephantsql.com/ywbqzgag'
 const sequelize = new Sequelize(url, {
   logging: false,
-})
+  pool: {
+    max: 100,      // maximum number of connections in pool
+    min: 0,      // minimum number of connections in pool
+    idle: 10000  // time (in milliseconds) after which idle connections are closed
+  }
+});
 
 // sequelize.authenticate()
 //   .then(()=> console.log('Connected to db'))
@@ -206,37 +211,147 @@ const createDummyUsers = async (dummyUsers) => {
 
 
 const dummyAuction = [
+  // {
+  //   start_time: new Date(new Date().getTime() + (5)*60*1000),
+  //   end_time: new Date(new Date().getTime() + (60)*60*1000*24),
+  //   status: 'open',
+  //   current_price: 300,
+  //   seller_id: 1, // Set to an existing seller's ID
+  //   item_name: 'Rare Baseball Card',
+  //   img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/baseballCard1.png',
+  //   category: 'collections & art',
+  //   description: 'A dummy auction item 1.',
+  // },
+  // {
+  //   start_time: new Date(new Date().getTime() + (5)*60*1000),
+  //   end_time: new Date(new Date().getTime() + (60)*60*1000*24*2),
+  //   status: 'open',
+  //   current_price: 300,
+  //   seller_id: 1, // Set to an existing seller's ID
+  //   item_name: 'Rare Baseball Card',
+  //   img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/baseballCard2.png',
+  //   category: 'collections & art',
+  //   description: 'A dummy auction item 1.',
+  // },
+  // {
+  //   start_time: new Date(new Date().getTime() + (5)*60*1000),
+  //   end_time: new Date(new Date().getTime() + (60)*60*1000*24*3),
+  //   status: 'open',
+  //   current_price: 300,
+  //   seller_id: 1, // Set to an existing seller's ID
+  //   item_name: 'Rare Baseball Card',
+  //   img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/baseballCard3.png',
+  //   category: 'collections & art',
+  //   description: 'A dummy auction item 1.',
+  // },
+  // {
+  //   start_time: new Date(new Date().getTime() + (6)*60*1000),
+  //   end_time: new Date(new Date().getTime() + (8)*60*1000),
+  //   status: 'closed',
+  //   current_price: 150,
+  //   seller_id: 2, // Set to an existing seller's ID
+  //   item_name: 'Very special stamp',
+  //   img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/stamp1.png',
+  //   category: 'collections & art',
+  //   description: 'A dummy auction item 2.',
+  // },
+  // {
+  //   start_time: new Date(new Date().getTime() + (6)*60*1000),
+  //   end_time: new Date(new Date().getTime() + (8)*60*1000*24*3),
+  //   status: 'closed',
+  //   current_price: 150,
+  //   seller_id: 2, // Set to an existing seller's ID
+  //   item_name: 'Very special stamp',
+  //   img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/stamp2.png',
+  //   category: 'collections & art',
+  //   description: 'A dummy auction item 2.',
+  // },
+  // {
+  //   start_time: new Date(new Date().getTime() + (6)*60*1000),
+  //   end_time: new Date(new Date().getTime() + (8)*60*1000*24*3),
+  //   status: 'closed',
+  //   current_price: 150,
+  //   seller_id: 2, // Set to an existing seller's ID
+  //   item_name: 'Very special stamp',
+  //   img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/stamp3.png',
+  //   category: 'collections & art',
+  //   description: 'A dummy auction item 2.',
+  // },
+  // {
+  //   start_time: new Date(new Date().getTime() + (7)*60*1000),
+  //   end_time: new Date(new Date().getTime() + (9)*60*1000),
+  //   status: 'closed',
+  //   current_price: 200,
+  //   seller_id: 3, // Set to an existing seller's ID
+  //   item_name: 'Antique Electronics',
+  //   img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/vintageElectronics1.png',
+  //   category: 'electronics',
+  //   description: 'A dummy auction item 3.',
+  // },
+  // {
+  //   start_time: new Date(new Date().getTime() + (7)*60*1000),
+  //   end_time: new Date(new Date().getTime() + (9)*60*1000*24*4),
+  //   status: 'open',
+  //   current_price: 200,
+  //   seller_id: 3, // Set to an existing seller's ID
+  //   item_name: 'Antique Electronics',
+  //   img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/vintageElectronics2.png',
+  //   category: 'electronics',
+  //   description: 'A dummy auction item 3.',
+  // },
+  // {
+  //   start_time: new Date(new Date().getTime() + (7)*60*1000),
+  //   end_time: new Date(new Date().getTime() + (9)*60*1000*24*5),
+  //   status: 'open',
+  //   current_price: 200,
+  //   seller_id: 3, // Set to an existing seller's ID
+  //   item_name: 'Antique Electronics',
+  //   img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/vintageElectronics3.png',
+  //   category: 'electronics',
+  //   description: 'A dummy auction item 3.',
+  // },
   {
-    start_time: new Date(new Date().getTime() + (5)*60*1000),
-    end_time: new Date(new Date().getTime() + (60)*60*1000*24),
+    start_time: new Date(new Date().getTime() + (7)*60*1000),
+    end_time: new Date(new Date().getTime() + (9)*60*1000*24*10),
     status: 'open',
-    current_price: 300,
-    seller_id: 1, // Set to an existing seller's ID
-    item_name: 'Rare Baseball Card',
-    img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/baseballCard1.png',
-    category: 'collections & art',
-    description: 'A dummy auction item 1.',
-  },
-  {
-    start_time: new Date(new Date().getTime() + (6)*60*1000),
-    end_time: new Date(new Date().getTime() + (8)*60*1000),
-    status: 'closed',
-    current_price: 150,
+    current_price: 200,
     seller_id: 2, // Set to an existing seller's ID
-    item_name: 'Very special stamp',
-    img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/stamp1.png',
-    category: 'collections & art',
-    description: 'A dummy auction item 2.',
+    item_name: 'Antique Jewelry',
+    img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/jewelry1.png',
+    category: 'jewelry & watches',
+    description: 'A dummy auction item 3.',
   },
   {
     start_time: new Date(new Date().getTime() + (7)*60*1000),
-    end_time: new Date(new Date().getTime() + (9)*60*1000),
-    status: 'closed',
+    end_time: new Date(new Date().getTime() + (9)*60*1000*24*10),
+    status: 'open',
+    current_price: 200,
+    seller_id: 2, // Set to an existing seller's ID
+    item_name: 'Antique Jewelry',
+    img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/jewelry2.png',
+    category: 'jewelry & watches',
+    description: 'A dummy auction item 3.',
+  },
+  {
+    start_time: new Date(new Date().getTime() + (7)*60*1000),
+    end_time: new Date(new Date().getTime() + (9)*60*1000*24*10),
+    status: 'open',
     current_price: 200,
     seller_id: 3, // Set to an existing seller's ID
-    item_name: 'Antique Electronics',
-    img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/vintageElectronics1.png',
-    category: 'electronics',
+    item_name: 'Antique Jewelry',
+    img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/jewelry3.png',
+    category: 'jewelry & watches',
+    description: 'A dummy auction item 3.',
+  },
+  {
+    start_time: new Date(new Date().getTime() + (7)*60*1000),
+    end_time: new Date(new Date().getTime() + (9)*60*1000*24*10),
+    status: 'open',
+    current_price: 200,
+    seller_id: 1, // Set to an existing seller's ID
+    item_name: 'Antique Jewelry',
+    img_url: 'https://justbobbybucket.s3.us-west-2.amazonaws.com/jewelry4.png',
+    category: 'jewelry & watches',
     description: 'A dummy auction item 3.',
   },
 ]
@@ -247,7 +362,7 @@ const createAuction = async (dummyAuction) => {
     const newAuction = await Auction.create(dummyAuction[i]);
     // console.log(newAuction.toJSON())
     // console.log(new Date(new Date().getTime() + (7)*60*1000))
-    await auctionEvent.createAuctionEvents(newAuction.toJSON())
+    // await auctionEvent.createAuctionEvents(newAuction.toJSON())
   }
 };
 
@@ -296,11 +411,12 @@ const createFollow = async (dummyFollow) => {
 //   .then(() => console.log('All models synchronized'));
 
 const buildDummyDB = async() => {
-  await createDummyUsers(dummyUsers);
+  // await createDummyUsers(dummyUsers);
   await createAuction(dummyAuction);
-  await createFollow(dummyFollow);
+  // await createFollow(dummyFollow);
 }
 // uncomment to add dummy data
 // buildDummyDB();
+
 
 module.exports = { User, Auction, followedAuctions };

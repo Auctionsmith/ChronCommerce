@@ -1,17 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link, useParams } from 'react-router-dom'
-
+import moment from 'moment'
+import Countdown from './Countdown'
 
 const Listing = ( { name, img, price, endTime, id } ) => {
-  
 
+  const dateFmt = (date) => {
+    const newDate = moment(date)
+    return newDate.format('MM/DD/YY hh:mm A')
+  }
+  dateFmt(endTime)
   return (
     <ItemContainer >
       <img src={img} alt="A picture of the item up for auction"/>
       <p>Name :{name}</p>
       <p>Price : <b>{price}</b></p>
-      <p>Ends at {endTime}</p>
+      <p>Ends at {dateFmt(endTime)}</p>
+      <Countdown date={endTime}/>
       <ItemDetailsLink to={`/${id}`}>View Auction Details</ItemDetailsLink>
     </ItemContainer>
   )
@@ -35,6 +41,7 @@ width : 14rem;
 background-color : #F7F7F7;
 transition: 0.2s;
 border-radius: 1rem;
+position: relative;
 p {
   margin: 2px;;
 }
@@ -48,12 +55,12 @@ transition: 0.2s;
     transform: translateY(-0.5rem);
     box-shadow: 0.5rem 0.75rem 1.5rem #bbbbbb;
 }
-
 img {
-  max-height: 100%
+  max-height: 100%;
 }
-
 `
+
+
 
 export default Listing
 

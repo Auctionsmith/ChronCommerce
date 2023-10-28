@@ -18,7 +18,7 @@ module.exports = function () {
           })
         // return done(null, foundUser);
       })
-      .catch((err) => next(err));
+      .catch((err) => done(err));
   }));
 
   passport.serializeUser((user, done) => {
@@ -47,15 +47,10 @@ passport.use(new GoogleStrategy({
     if(!foundUser) {
     // create user in database here
      const createdUser = await User.create({
-        address: '789 Oak St',
-        city: 'Capital City',
-        state: 'IL',
-        zip: 62706,
-        first_name: 'Emily',
-        last_name: 'Smith',
+        first_name: profile.name.givenName,
+        last_name: profile.name.familyName,
         email: profile.emails[0]['value'],
-        phone: 1122334455,
-        password: 'password789',
+        password: 'password123',
       })
       return done(null, createdUser)
     }

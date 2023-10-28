@@ -25,10 +25,9 @@ const Login = () => {
   axios.post('auth/login', {username: username, password: password})
   
     .then((payload)=> {  
-    
       dispatch(getUserInfo(payload.data))
       navigate('/')
-      axios.get('auth/user').then((data)=>console.log(data))
+      axios.get('auth/user').then((data)=>console.log(data)).catch((err)=>console.log(err))
     })
     .catch((err)=> {
       console.log(err)
@@ -55,8 +54,8 @@ const Login = () => {
             type="password"
             ref={passwordRef}
           />
-     
         <button type="submit">Login</button>
+        <div><a href="/auth/google">Login With google</a></div>
         {errorMessage&&<InvalidLogin>{errorMessage.err}</InvalidLogin>}
       </DetailsForm>
     <footer className="signup-link">

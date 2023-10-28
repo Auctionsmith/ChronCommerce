@@ -77,6 +77,8 @@ const OpenBidsContainer = styled.div`
 display: flex;
 flex-direction: row;
 margin-bottom: 4em;
+padding: 3em;
+gap: 1em;
 flex-wrap:nowrap;
 overflow-x: auto;
 `
@@ -87,6 +89,8 @@ flex-direction: row;
 margin-left: 4em;
 flex-wrap:nowrap;
 overflow-x: auto;
+padding: 3em;
+gap: 1em;
 `
 
 export default WatchList

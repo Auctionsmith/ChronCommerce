@@ -7,6 +7,7 @@ const auctionEvent = require('../services/auctionEvent');
 const auctionController = {};
 
 auctionController.getAllAuctions = async (req,res,next) => {
+
   const {search, category, status} = req.query;
   const searchString = search !== undefined ? `%${search}%` : '%';
 
@@ -35,7 +36,7 @@ auctionController.getAllAuctions = async (req,res,next) => {
 }
 
 auctionController.getAuction = async (req,res,next) => {
-  
+
   const {id} = req.params
   try {
     const auction = (await Auction.findOne({
