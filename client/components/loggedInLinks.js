@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../slices/userSlice'
 import axios from 'axios'
+import AuctionBadge from './Badges/AuctionBadge';
 
 const LoggedInLinks = () => {
     const dispatch = useDispatch()
@@ -35,7 +36,8 @@ const LoggedInLinks = () => {
         <StyledLoggedInLink to={"/sell"}>Sell</StyledLoggedInLink>
         <StyledLoggedInLink to={"/watchlist"}>Watchlist</StyledLoggedInLink>
         <CheckoutBadgeLink to={"/checkout"}>
-            <FaRegBell/>
+
+            <AuctionBadge/>
         </CheckoutBadgeLink>
         <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
     </LoggedInLinksWrapper>
@@ -43,12 +45,16 @@ const LoggedInLinks = () => {
 }
 
 const StyledLoggedInLink = styled(NavLink)`
+display: flex;
+align-items: center;
+justify-content: center;
 color: black;
 padding: 10px;
 text-decoration: none;
 font-size: 1.25em;
 &:hover {
-  text-decoration: underline;
+  background-color: var(--nav-button-color);
+  border-radius: 1em;
 }
 `
 
